@@ -45,12 +45,12 @@ local theme_groups = {
 			})
 		end,
 	},
-	{
-		family = "nord",
-		variants = { "nord" },
-		link = "https://github.com/shaunsingh/nord.nvim",
-		setup = function() end,
-	},
+	-- {
+	-- 	family = "nord",
+	-- 	variants = { "nord" },
+	-- 	link = "https://github.com/shaunsingh/nord.nvim",
+	-- 	setup = function() end,
+	-- },
 }
 
 -- Selection logic to alternate families and rotate variants
