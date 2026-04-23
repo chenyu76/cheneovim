@@ -1,4 +1,4 @@
-# chnvim
+# cheneovim
 
 My nvim config based on
 
