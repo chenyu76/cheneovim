@@ -167,6 +167,9 @@ function RunCommand(cmd_pattern, arg)
 	-- vim.cmd("TermExec cmd='" .. cmd .. "' dir='" .. file_info.dir .. "'")
 	local opts = {
 		cwd = file_info.dir,
+		auto_close = false,
+		auto_insert = true,
+		start_insert = true,
 	}
 	Snacks.terminal.toggle(cmd, opts)
 end
