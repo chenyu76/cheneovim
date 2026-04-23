@@ -167,11 +167,16 @@ function RunCommand(cmd_pattern, arg)
 	-- vim.cmd("TermExec cmd='" .. cmd .. "' dir='" .. file_info.dir .. "'")
 	local opts = {
 		cwd = file_info.dir,
-		auto_close = false,
-		auto_insert = true,
-		start_insert = true,
+		-- auto_close = false,
+		-- auto_insert = true,
+		-- start_insert = true,
 	}
-	Snacks.terminal.toggle(cmd, opts)
+	-- Snacks.terminal.toggle(cmd, opts)
+	if string.sub(cmd, -4) == "exit" then
+		Snacks.terminal.toggle(cmd, opts)
+	else
+		Snacks.terminal.toggle('fish -C "' .. cmd .. '"', opts)
+	end
 end
 
 -- Shebang 检测函数

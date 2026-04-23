@@ -31,8 +31,11 @@ require("nvim-treesitter").setup({
 		"rust",
 		"go",
 		"latex",
+		"markdown",
+		"markdown_inline",
 		"haskell",
 		"python",
+		"html",
 	},
 
 	auto_install = true, -- autoinstall languages that are not installed yet

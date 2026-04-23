@@ -1,3 +1,7 @@
+-- Completion for Checkbox states & Callouts are provided.
+-- You can disable this by running the following before loading markview.
+vim.g.markview_blink_loaded = true
+
 vim.pack.add({
 	"https://github.com/Saecki/crates.nvim",
 	"https://github.com/hat0uma/csvview.nvim",
@@ -20,5 +24,16 @@ require("csvview").setup({
 		jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
 		jump_next_row = { "<Enter>", mode = { "n", "v" } },
 		jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
+	},
+})
+require("markview").setup({
+	preview = {
+		enable = true,
+	},
+	latex = {
+		enable = false,
+	},
+	html = {
+		enable = true,
 	},
 })
