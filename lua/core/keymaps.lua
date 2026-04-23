@@ -9,7 +9,6 @@ wk.setup({
 	spec = {
 		{ "<leader>s", group = "[S]earch", icon = { icon = "", color = "green" } },
 		{ "<leader>t", group = "[T]oggle" },
-		{ "<leader>x", group = "Trouble" },
 		{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 		-- {
 		-- 	"<leader>tc",
@@ -25,7 +24,7 @@ wk.setup({
 		-- { '<leader>n', '<cmd>Neotree reveal toggle dir=./<CR>', desc = '[N]eotree', mode = 'n', icon = '' },
 		{ "<C-n>", "<cmd>Neotree reveal toggle dir=./<CR>", desc = "[N]eotree", mode = "n", icon = "" },
 		{ "<C-.>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
-		{ "<F4>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
+		-- { "<F4>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
 		-- { '<leader>e', '<cmd>ToggleTerm<CR>', desc = 'Terminal [e]mulator', mode = 'n', icon = '' },
 		-- { '<C-n>', '<cmd>Neotree reveal toggle dir=./<CR>', desc = '[N]eotree', mode = { 'n', 'i' }, icon = '' },
 		-- { '<C-\\>', '<cmd>ToggleTerm<CR>', desc = 'Terminal', mode = { 'n', 'i', 't' }, icon = '' },
@@ -245,13 +244,45 @@ wk.setup({
 			desc = "Search on current file",
 			icon = "󰱼",
 		},
-		-- INFO: snacks
+		-- INFO: plugin 'folke/snacks.nvim'
 		{
 			"<leader>l",
 			'<cmd>lua require("snacks").lazygit()<CR>',
 			desc = "[L]azygit",
 			mode = "n",
 			icon = "",
+		},
+		-- INFO: plugin 'folke/trouble.nvim'
+		{ "<leader>x", group = "Trouble" },
+		{
+			"<leader>xx",
+			"<cmd>Trouble diagnostics toggle<cr>",
+			desc = "Diagnostics (Trouble)",
+		},
+		{
+			"<leader>xX",
+			"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+			desc = "Buffer Diagnostics (Trouble)",
+		},
+		{
+			"<leader>xs",
+			"<cmd>Trouble symbols toggle focus=false<cr>",
+			desc = "Symbols (Trouble)",
+		},
+		{
+			"<leader>xl",
+			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+			desc = "LSP Definitions / references / ... (Trouble)",
+		},
+		{
+			"<leader>xL",
+			"<cmd>Trouble loclist toggle<cr>",
+			desc = "Location List (Trouble)",
+		},
+		{
+			"<leader>xQ",
+			"<cmd>Trouble qflist toggle<cr>",
+			desc = "Quickfix List (Trouble)",
 		},
 	},
 })

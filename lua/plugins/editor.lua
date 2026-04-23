@@ -198,6 +198,8 @@ vim.pack.add({
 	"https://github.com/folke/todo-comments.nvim",
 	-- Deep buffer integration for Git
 	"https://github.com/lewis6991/gitsigns.nvim",
+	-- git diff view
+	-- "https://github.com/sindrets/diffview.nvim",
 	--[[
 f, t, F, T motions:
 
@@ -231,9 +233,18 @@ f, t, F, T motions:
 	"https://github.com/nvim-pack/nvim-spectre",
 	-- A collection of small QoL plugins for Neovim.
 	"https://github.com/folke/snacks.nvim",
+	-- A pretty list for showing diagnostics, references, telescope results,
+	-- quickfix and location lists to help you solve all the trouble your code is causing.
+	"https://github.com/folke/trouble.nvim",
+	-- A fancy, configurable, notification manager for NeoVim
+	"https://github.com/rcarriga/nvim-notify",
+	-- nvim-scrollview is a Neovim plugin that displays interactive vertical scrollbars and signs.
+	-- The plugin is customizable (see :help scrollview-configuration).
+	"https://github.com/dstein64/nvim-scrollview",
 }, { confirm = false })
 
 require("nvim-autopairs").setup()
+require("trouble").setup()
 require("ibl").setup()
 require("todo-comments").setup()
 require("gitsigns").setup()
@@ -424,3 +435,16 @@ require("snacks").setup({
 		},
 	},
 })
+
+local notify = require("notify")
+-- notify.setup {
+--   -- 其他配置项...
+--   stages = 'fade_in_slide_out',
+--   timeout = 3000,
+--   max_width = 80,
+--   max_height = 20,
+--   background_colour = '#000000',
+-- }
+-- 将 notify 函数覆盖全局的 vim.notify，
+-- 这样所有调用 vim.notify 的地方都会使用 nvim-notify 来显示通知
+vim.notify = notify
