@@ -67,10 +67,12 @@ vim.pack.add({
 
 -- NOTE:
 -- Build Step is needed for regex support in snippets.
+-- if snip reach a error
 --
--- cd ~/.local/share/nvim/site/pack/deps/opt/LuaSnip
+-- cd ~/.local/share/nvim/site/pack/core/opt/LuaSnip
 -- make install_jsregexp
 
+require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/snippets" } })
 local luasnip = require("luasnip")
 luasnip.config.set_config({
@@ -82,6 +84,9 @@ require("snippets.unicode-scripts")
 vim.pack.add({ "https://github.com/saghen/blink.cmp" }, { confirm = false })
 
 require("blink.cmp").setup({
+	snippets = {
+		preset = "luasnip",
+	},
 	completion = {
 		documentation = {
 			auto_show = true,
