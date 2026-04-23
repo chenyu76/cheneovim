@@ -32,9 +32,17 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "draftsman.nvim": {
+      "rev": "c548d6afee958efc9e0d546df5b61d1f50b3ec77",
+      "src": "https://github.com/chenyu76/draftsman.nvim"
+    },
     "dressing.nvim": {
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
       "src": "https://github.com/stevearc/dressing.nvim"
+    },
+    "dropbar.nvim": {
+      "rev": "ce202248134e3949aac375fd66c28e5207785b10",
+      "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
     "flash.nvim": {
       "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
@@ -172,6 +180,10 @@
       "rev": "78b9d3bd21fe479690ae5e08a1bf3602698466d8",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
+    "snacks.nvim": {
+      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "src": "https://github.com/folke/snacks.nvim"
+    },
     "telescope-fzf-native.nvim": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
@@ -183,6 +195,10 @@
     "telescope.nvim": {
       "rev": "028d9a0695a0cc4cfa893889f8c408ed7ccc8adc",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "texpresso.vim": {
+      "rev": "5630dca6090787c446e72886812a1b6a5716c2fa",
+      "src": "https://github.com/let-def/texpresso.vim"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",

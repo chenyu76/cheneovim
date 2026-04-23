@@ -2,10 +2,15 @@
 vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim", -- library dependency
 	"https://github.com/nvim-tree/nvim-web-devicons", -- icons (nerd font)
+	"https://github.com/nvim-tree/ahmedkhalf/project.nvim", -- cmd "telescope project" dep
 	"https://github.com/nvim-telescope/telescope.nvim", -- the fuzzy finder
 }, { confirm = false })
 
+require("project_nvim").setup({})
 require("telescope").setup({})
+require("telescope").load_extension("projects")
+pcall(require("telescope").load_extension, "fzf")
+pcall(require("telescope").load_extension, "ui-select")
 
 local pickers = require("telescope.builtin")
 
@@ -30,16 +35,6 @@ require("lualine").setup({
 })
 
 vim.pack.add({
-	-- auto pairs
-	"https://github.com/windwp/nvim-autopairs",
-	-- This plugin adds indentation guides to Neovim. It uses Neovim's virtual text feature and no conceal
-	"https://github.com/lukas-reineke/indent-blankline.nvim",
-}, { confirm = false })
-
-require("nvim-autopairs").setup()
-require("ibl").setup()
-
-vim.pack.add({
 	--denpendencies
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
@@ -48,6 +43,9 @@ vim.pack.add({
 	"https://github.com/nvim-neo-tree/neo-tree.nvim",
 }, { confirm = false })
 
+require("window-picker").setup({
+	hint = "floating-big-letter",
+})
 require("neo-tree").setup({
 	filesystem = {
 		filtered_items = {
@@ -192,6 +190,13 @@ require("conform").setup({
 })
 
 vim.pack.add({
+	-- auto pairs
+	"https://github.com/windwp/nvim-autopairs",
+	-- This plugin adds indentation guides to Neovim. It uses Neovim's virtual text feature and no conceal
+	"https://github.com/lukas-reineke/indent-blankline.nvim",
+	-- highlight TODO/INFO/WARN comments
+	"https://github.com/folke/todo-comments.nvim",
+	-- Deep buffer integration for Git
 	"https://github.com/lewis6991/gitsigns.nvim",
 	--[[
 f, t, F, T motions:
@@ -215,12 +220,26 @@ f, t, F, T motions:
 	--
 	-- This Neovim plugin provides alternating syntax highlighting (“rainbow parentheses”) for Neovim.
 	"https://github.com/HiPhish/rainbow-delimiters.nvim",
+	-- Alt hjkl resize
 	"https://github.com/mrjones2014/smart-splits.nvim",
+	"https://github.com/chenyu76/draftsman.nvim",
+	-- A polished, IDE-like, highly-customizable winbar for Neovim with drop-down menus and multiple backends.
+	-- For more information see :h dropbar.
+	"https://github.com/Bekaboo/dropbar.nvim",
+	-- A search panel for neovim.
+	-- Spectre find the enemy and replace them with dark power.
+	"https://github.com/nvim-pack/nvim-spectre",
+	-- A collection of small QoL plugins for Neovim.
+	"https://github.com/folke/snacks.nvim",
 }, { confirm = false })
 
+require("nvim-autopairs").setup()
+require("ibl").setup()
+require("todo-comments").setup()
 require("gitsigns").setup()
 require("flash").setup()
 require("outline").setup()
+require("draftsman").setup({})
 require("local-highlight").setup({
 	-- file_types = { 'python', 'cpp' }, -- If this is given only attach to this
 	-- OR attach to every filetype except:
@@ -243,6 +262,28 @@ require("local-highlight").setup({
 	},
 	debounce_timeout = 200,
 })
+local highlight = {
+	"RainbowRed",
+	"RainbowYellow",
+	"RainbowBlue",
+	"RainbowOrange",
+	"RainbowGreen",
+	"RainbowViolet",
+	"RainbowCyan",
+}
+-- rainbow-delimiters.nvim integration
+local hooks = require("ibl.hooks")
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
 vim.g.rainbow_delimiters = {
 	strategy = {
 		[""] = "rainbow-delimiters.strategy.global",
@@ -260,16 +301,10 @@ vim.g.rainbow_delimiters = {
 		lua = 210,
 		latex = 211,
 	},
-	highlight = {
-		"RainbowDelimiterRed",
-		"RainbowDelimiterYellow",
-		"RainbowDelimiterBlue",
-		"RainbowDelimiterOrange",
-		"RainbowDelimiterGreen",
-		"RainbowDelimiterViolet",
-		"RainbowDelimiterCyan",
-	},
+	highlight = highlight,
 }
+require("ibl").setup({ scope = { highlight = highlight } })
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
 local smart_splits = require("smart-splits")
 -- resizing splits
@@ -285,3 +320,107 @@ vim.keymap.set("n", "<C-j>", smart_splits.move_cursor_down)
 vim.keymap.set("n", "<C-k>", smart_splits.move_cursor_up)
 vim.keymap.set("n", "<C-l>", smart_splits.move_cursor_right)
 vim.keymap.set("n", "<C-\\>", smart_splits.move_cursor_previous)
+
+require("snacks").setup({
+	terminal = { enabled = true },
+	lazygit = { enabled = true },
+	dashboard = {
+		width = 60,
+		row = nil, -- dashboard position. nil for center
+		col = nil, -- dashboard position. nil for center
+		pane_gap = 4, -- empty columns between vertical panes
+		autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", -- autokey sequence
+		-- These settings are used by some built-in sections
+		preset = {
+			-- Defaults to a picker that supports `fzf-lua`, `telescope.nvim` and `mini.pick`
+			---@type fun(cmd:string, opts:table)|nil
+			pick = nil,
+			-- Used by the `keys` section to show keymaps.
+			-- Set your custom keymaps here.
+			-- When using a function, the `items` argument are the default keymaps.
+			---@type snacks.dashboard.Item[]
+			keys = {
+				{ icon = "󰋚 ", key = ".", desc = "Oldfiles", action = ":Telescope oldfiles" },
+				{ icon = " ", key = "c", desc = "Create a new file", action = ":ene | startinsert" },
+				{ icon = "󱉟 ", key = "p", desc = "Projects", action = ":Telescope projects" },
+				{ icon = "󰩍 ", key = "o", desc = "Open a file", action = ":Open" },
+				{ icon = " ", key = "t", desc = "Terminal", action = ":terminal" },
+				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+			},
+			-- Used by the `header` section
+			header = [[
+                     -=-                               
+                   4"   "h                             
+                  $      {@                            
+                          L                            
+                  -aF`````vF"``""Vkw-                  
+              -sF`                   {h,               
+           ~F`  <P``    ~--,           `Q-             
+         ~}  ,d`            `Q=          `h            
+        :}  /                  {@          $           
+       .} c`       ,             {@         $          
+       $ /        d        \      L          &         
+       }    {    d   L      |    ]      $     {@       
+      ]L   |     [  {       |    $     } @{@{@$        
+      ]L     ..  [  $       |    }     [  {}$ \        
+       [ Lg$}m>.    ``V@- --=---.L     {-} L { }       
+         }d'  ]`@        o"`Qk= }      / | |  }        
+         { @ ~`         |   [ `L}     /  | |  }        
+         { `$,,"        ]@-/  , [    .   | |  L        
+         }               "--s" ]     $   | | ]         
+         }    |`\              {    :{-  | ` }         
+         } \   h ]   .--       $    }`L      \         
+         $   `@,``""`       .-<$   /  {      `-        
+         $     .}"^mwwpy^""`}  }   }   Q      $        
+         { L  4}      }    /   [  ] `- {@      L       
+           L  }       L  ~"    L  {  {@ \      $       
+          d  d        {,/      L  }   {  Q.    }       
+          {  {                 L  }   {   {    `       
+]],
+		},
+		-- item field formatters
+		formats = {
+			icon = function(item)
+				if item.file and item.icon == "file" or item.icon == "directory" then
+					return Snacks.dashboard.icon(item.file, item.icon)
+				end
+				return { item.icon, width = 2, hl = "icon" }
+			end,
+			footer = { "%s", align = "center" },
+			header = { "%s", align = "center" },
+			file = function(item, ctx)
+				local fname = vim.fn.fnamemodify(item.file, ":~")
+				fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+				if #fname > ctx.width then
+					local dir = vim.fn.fnamemodify(fname, ":h")
+					local file = vim.fn.fnamemodify(fname, ":t")
+					if dir and file then
+						file = file:sub(-(ctx.width - #dir - 2))
+						fname = dir .. "/…" .. file
+					end
+				end
+				local dir, file = fname:match("^(.*)/(.+)$")
+				return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
+			end,
+		},
+		sections = {
+			{
+				pane = 1,
+				{
+					section = "header",
+				},
+			},
+			{
+				pane = 2,
+				-- { section = "keys", gap = 1, padding = 1 },
+				{ title = "NEOVIM", padding = 1 },
+				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+			},
+			-- { section = "keys", gap = 1, padding = 1 },
+			-- start up only works for lazy.nvim
+			-- { section = "startup" },
+		},
+	},
+})

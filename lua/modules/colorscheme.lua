@@ -49,38 +49,37 @@ local theme_groups = {
 		family = "nord",
 		variants = { "nord" },
 		link = "https://github.com/shaunsingh/nord.nvim",
-		setup = function()
-		end,
+		setup = function() end,
 	},
 }
 
 -- Selection logic to alternate families and rotate variants
 local function get_next_theme()
-    local state = load_state()
-    local family_idx = state.family_idx or 1
-    if family_idx > #theme_groups then
-        family_idx = 1
-    end
+	local state = load_state()
+	local family_idx = state.family_idx or 1
+	if family_idx > #theme_groups then
+		family_idx = 1
+	end
 
-    local variant_indices = state.variant_indices or {}
-    local group = theme_groups[family_idx]
-    
-    local family_key = tostring(family_idx)
-    local variant_idx = variant_indices[family_key] or 1
-    if variant_idx > #group.variants then
-        variant_idx = 1
-    end
+	local variant_indices = state.variant_indices or {}
+	local group = theme_groups[family_idx]
 
-    local selected_theme = group.variants[variant_idx]
+	local family_key = tostring(family_idx)
+	local variant_idx = variant_indices[family_key] or 1
+	if variant_idx > #group.variants then
+		variant_idx = 1
+	end
 
-    -- Update state for next startup
-    state.family_idx = (family_idx % #theme_groups) + 1
-    variant_indices[family_key] = (variant_idx % #group.variants) + 1
-    state.state_version = (state.state_version or 0) + 1
-    state.variant_indices = variant_indices
-    save_state(state)
+	local selected_theme = group.variants[variant_idx]
 
-    return group, selected_theme
+	-- Update state for next startup
+	state.family_idx = (family_idx % #theme_groups) + 1
+	variant_indices[family_key] = (variant_idx % #group.variants) + 1
+	state.state_version = (state.state_version or 0) + 1
+	state.variant_indices = variant_indices
+	save_state(state)
+
+	return group, selected_theme
 end
 
 -- Build the list of plugin specifications for lazy.nvim
@@ -93,4 +92,5 @@ vim.pack.add(links)
 -- Identify the theme for the current session
 local group, current_variant = get_next_theme()
 group.setup()
-pcall(vim.cmd.colorscheme, current_variant)
+vim.cmd.colorscheme(current_variant)
+-- pcall(vim.cmd.colorscheme, current_variant)
