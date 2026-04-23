@@ -219,6 +219,8 @@ wk.setup({
 			desc = "Toggle Outline",
 			icon = "",
 		},
+		-- INFO: plugin 'let-def/texpresso.vim',
+		{ "<leader>tx", "<cmd>TeXpresso %<CR>", desc = "TeXpresso %" },
 	},
 })
 --vim.keymap.set()
