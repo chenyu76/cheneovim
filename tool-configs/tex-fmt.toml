@@ -1,0 +1,12 @@
+# 开启换行
+wrap = true
+wraplen = 80
+wrapmin = 70
+
+# 设置中文标点换行字符
+wrap-chars = ["。","，","：","；","！","？","」","』","）","】","》","、","”","’","．","…"]
+# 需要在conform.nvim中配置使用这个文件
+# lua/plugin/completion/conform.lua
+
+wrap-cjk = true
+wrap-by-visual-len = true
