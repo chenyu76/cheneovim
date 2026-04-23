@@ -211,6 +211,14 @@ wk.setup({
 		-- 开关 (Toggles)
 		{ "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Toggle Blame", buffer = bufnr },
 		{ "<leader>tD", gitsigns.toggle_deleted, desc = "Toggle Deleted", buffer = bufnr },
+
+		-- INFO: plugin outline.nvim
+		{
+			"<leader>o",
+			"<cmd>Outline<CR>",
+			desc = "Toggle Outline",
+			icon = "",
+		},
 	},
 })
 --vim.keymap.set()

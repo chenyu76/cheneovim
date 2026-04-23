@@ -193,7 +193,95 @@ require("conform").setup({
 
 vim.pack.add({
 	"https://github.com/lewis6991/gitsigns.nvim",
-})
+	--[[
+f, t, F, T motions:
 
-local gitsigns = require("gitsigns")
-gitsigns.setup()
+    After typing f{char} or F{char}, you can repeat the motion with f or go to the previous match with F to undo a jump.
+    Similarly, after typing t{char} or T{char}, you can repeat the motion with t or go to the previous match with T.
+    You can also go to the next match with ; or previous match with ,
+    Any highlights clear automatically when moving, changing buffers, or pressing <esc>.
+
+--]]
+	"https://github.com/folke/flash.nvim",
+	-- Using regexes and extmarks to highlight uses of the word under the cursor.
+	-- Keeps updates local to currently visible lines, thus enabling blazingly fast performance.
+	"https://github.com/tzachar/local-highlight.nvim",
+	-- "https://github.com/echasnovski/mini.nvim",
+	--
+	-- A sidebar with a tree-like outline of symbols from your code, powered by LSP.
+	"https://github.com/hedyhli/outline.nvim",
+	--
+	-- NOTE: This plugin may cause lag?
+	--
+	-- This Neovim plugin provides alternating syntax highlighting (“rainbow parentheses”) for Neovim.
+	"https://github.com/HiPhish/rainbow-delimiters.nvim",
+	"https://github.com/mrjones2014/smart-splits.nvim",
+}, { confirm = false })
+
+require("gitsigns").setup()
+require("flash").setup()
+require("outline").setup()
+require("local-highlight").setup({
+	-- file_types = { 'python', 'cpp' }, -- If this is given only attach to this
+	-- OR attach to every filetype except:
+	disable_file_types = { "tex" },
+	hlgroup = "LocalHighlight",
+	cw_hlgroup = nil,
+	-- Whether to display highlights in INSERT mode or not
+	insert_mode = false,
+	min_match_len = 1,
+	max_match_len = math.huge,
+	highlight_single_match = true,
+	animate = {
+		-- only support when snacks.nvim is installed
+		enabled = false, -- true,
+		easing = "linear",
+		duration = {
+			step = 10, -- ms per step
+			total = 100, -- maximum duration
+		},
+	},
+	debounce_timeout = 200,
+})
+vim.g.rainbow_delimiters = {
+	strategy = {
+		[""] = "rainbow-delimiters.strategy.global",
+		vim = "rainbow-delimiters.strategy.local",
+	},
+	query = {
+		-- [''] = 'rainbow-blocks',
+		[""] = "rainbow-delimiters",
+		lua = "rainbow-blocks",
+		latex = "rainbow-blocks",
+		-- python = 'rainbow-blocks',
+	},
+	priority = {
+		[""] = 110,
+		lua = 210,
+		latex = 211,
+	},
+	highlight = {
+		"RainbowDelimiterRed",
+		"RainbowDelimiterYellow",
+		"RainbowDelimiterBlue",
+		"RainbowDelimiterOrange",
+		"RainbowDelimiterGreen",
+		"RainbowDelimiterViolet",
+		"RainbowDelimiterCyan",
+	},
+}
+
+local smart_splits = require("smart-splits")
+-- resizing splits
+-- these keymaps will also accept a range,
+-- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+vim.keymap.set("n", "<A-h>", smart_splits.resize_left)
+vim.keymap.set("n", "<A-j>", smart_splits.resize_down)
+vim.keymap.set("n", "<A-k>", smart_splits.resize_up)
+vim.keymap.set("n", "<A-l>", smart_splits.resize_right)
+-- moving between splits
+vim.keymap.set("n", "<C-h>", smart_splits.move_cursor_left)
+vim.keymap.set("n", "<C-j>", smart_splits.move_cursor_down)
+vim.keymap.set("n", "<C-k>", smart_splits.move_cursor_up)
+vim.keymap.set("n", "<C-l>", smart_splits.move_cursor_right)
+vim.keymap.set("n", "<C-\\>", smart_splits.move_cursor_previous)
