@@ -2,7 +2,7 @@
 vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim", -- library dependency
 	"https://github.com/nvim-tree/nvim-web-devicons", -- icons (nerd font)
-	"https://github.com/nvim-tree/ahmedkhalf/project.nvim", -- cmd "telescope project" dep
+	"https://github.com/ahmedkhalf/project.nvim", -- cmd "telescope project" dep
 	"https://github.com/nvim-telescope/telescope.nvim", -- the fuzzy finder
 }, { confirm = false })
 
@@ -351,7 +351,7 @@ require("snacks").setup({
 			-- When using a function, the `items` argument are the default keymaps.
 			---@type snacks.dashboard.Item[]
 			keys = {
-				{ icon = "󰋚 ", key = ".", desc = "Oldfiles", action = ":Telescope oldfiles" },
+				{ icon = "󰋚 ", key = ".", desc = "Recent files", action = ":Telescope oldfiles" },
 				{ icon = " ", key = "c", desc = "Create a new file", action = ":ene | startinsert" },
 				{ icon = "󱉟 ", key = "p", desc = "Projects", action = ":Telescope projects" },
 				{ icon = "󰩍 ", key = "o", desc = "Open a file", action = ":Open" },
