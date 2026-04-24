@@ -64,7 +64,7 @@ require("neo-tree").setup({
 			},
 		},
 		window = {
-			width = 25,
+			width = 30,
 			mappings = {
 				["\\"] = "close_window",
 			},
@@ -424,10 +424,23 @@ require("snacks").setup({
 			{
 				pane = 2,
 				-- { section = "keys", gap = 1, padding = 1 },
-				{ title = "NEOVIM", padding = 1 },
-				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+				-- { icon = " ", title = "NEOVIM", padding = 1 },
+				{
+					-- section = "text",
+					text = [[
+ _   _ _____ _____     _____ __  __ 
+| \ | | ____/ _ \ \   / /_ _|  \/  |
+|  \| |  _|| | | \ \ / / | || |\/| |
+| |\  | |__| |_| |\ V /  | || |  | |
+|_| \_|_____\___/  \_/  |___|_|  |_|
+          ]],
+					-- hl = "SnacksDashboardHeader",
+					padding = 1,
+				},
+				-- { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+				-- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+				-- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+				{ section = "keys", gap = 1, padding = 1 },
 			},
 			-- { section = "keys", gap = 1, padding = 1 },
 			-- start up only works for lazy.nvim
