@@ -60,6 +60,7 @@ require("neo-tree").setup({
 				"*.fdb_latexmk",
 				"*.fls",
 				"*.synctex",
+				"*.synctex(busy)",
 				"*.synctex.gz",
 			},
 		},
@@ -336,7 +337,7 @@ require("snacks").setup({
 	terminal = { enabled = true },
 	lazygit = { enabled = true },
 	dashboard = {
-		width = 60,
+		width = 42,
 		row = nil, -- dashboard position. nil for center
 		col = nil, -- dashboard position. nil for center
 		pane_gap = 4, -- empty columns between vertical panes
@@ -360,33 +361,33 @@ require("snacks").setup({
 			},
 			-- Used by the `header` section
 			header = [[
-                     -=-                               
-                   4"   "h                             
-                  $      {@                            
-                          L                            
-                  -aF`````vF"``""Vkw-                  
-              -sF`                   {h,               
-           ~F`  <P``    ~--,           `Q-             
-         ~}  ,d`            `Q=          `h            
-        :}  /                  {@          $           
-       .} c`       ,             {@         $          
-       $ /        d        \      L          &         
-       }    {    d   L      |    ]      $     {@       
-      ]L   |     [  {       |    $     } @{@{@$        
-      ]L     ..  [  $       |    }     [  {}$ \        
-       [ Lg$}m>.    ``V@- --=---.L     {-} L { }       
-         }d'  ]`@        o"`Qk= }      / | |  }        
-         { @ ~`         |   [ `L}     /  | |  }        
-         { `$,,"        ]@-/  , [    .   | |  L        
-         }               "--s" ]     $   | | ]         
-         }    |`\              {    :{-  | ` }         
-         } \   h ]   .--       $    }`L      \         
-         $   `@,``""`       .-<$   /  {      `-        
-         $     .}"^mwwpy^""`}  }   }   Q      $        
-         { L  4}      }    /   [  ] `- {@      L       
-           L  }       L  ~"    L  {  {@ \      $       
-          d  d        {,/      L  }   {  Q.    }       
-          {  {                 L  }   {   {    `       
+               -=-                        
+             4"   "h                      
+            /      {@                     
+                    L                     
+            -aF`````vF"``""Vkw-           
+        -sF`                   {h,        
+     ~F`  <P``    ~--,           `Q-      
+   ~}  ,d`            `Q=          `h     
+  :}  /                  {@          $    
+ .} c`       ,             {@         $   
+ $ /        d        \      L          &  
+ }    {    d   L      |    ]      $     {@
+]L   |     [  {       |    $     } @{@{@$ 
+]L     ..  [  $       |    }     [  {}$ \ 
+ [ Lg$}m>.    ``V@- --=---.L     {-} L { }
+   }d'  ]`@        o"`Qk= }      / | |  } 
+   { @ ~`         |   [ `L}     /  | |  } 
+   { `$,,"        ]@-/  , [    .   | |  L 
+   }               "--s" ]     $   | | ]  
+   }    |`\              {    :{-  | ` }  
+   } \   h ]   .--       $    }`L      \  
+   $   `@,``""`       .-<$   /  {      `- 
+   $     .}"^mwwpy^""`}  }   }   Q      $ 
+   { L  4}      }    /   [  ] `- {@      L
+     L  }       L  ~"    L  {  {@ \      $
+    d  d        {,/      L  }   {  Q.    }
+    {  {                 L  }   {   {    `
 ]],
 		},
 		-- item field formatters
@@ -428,14 +429,14 @@ require("snacks").setup({
 				{
 					-- section = "text",
 					text = [[
- _   _ _____ _____     _____ __  __ 
-| \ | | ____/ _ \ \   / /_ _|  \/  |
-|  \| |  _|| | | \ \ / / | || |\/| |
-| |\  | |__| |_| |\ V /  | || |  | |
-|_| \_|_____\___/  \_/  |___|_|  |_|
+    _   _ _____ _____     _____ __  __ 
+   | \ | | ____/ _ \ \   / /_ _|  \/  |
+   |  \| |  _|| | | \ \ / / | || |\/| |
+   | |\  | |__| |_| |\ V /  | || |  | |
+   |_| \_|_____\___/  \_/  |___|_|  |_|
           ]],
 					-- hl = "SnacksDashboardHeader",
-					padding = 1,
+					padding = 2,
 				},
 				-- { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
 				-- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
