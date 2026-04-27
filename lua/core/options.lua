@@ -120,6 +120,12 @@ vim.api.nvim_create_user_command("OpenFolderInVSCode", function()
 	vim.cmd("silent !code " .. vim.fn.fnameescape(path))
 end, {})
 
+vim.api.nvim_create_user_command("OpenFolderInNautilus", function()
+	local path = vim.fn.expand("%:p:h")
+	-- nautilus 是Gnome的文件管理器名字
+	vim.cmd("silent !nautilus " .. vim.fn.fnameescape(path))
+end, {})
+
 -- GUI 文件选择对话框函数 (Functions)
 local function open_file_with_dialog()
 	-- 调用 zenity 文件选择器
@@ -158,3 +164,11 @@ if vim.g.neovide then
 end
 
 vim.o.colorcolumn = "80,100"
+
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- is not what someone will guess without a bit more experience.
+--
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
