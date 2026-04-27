@@ -56,6 +56,7 @@ local ft_cmds = {
 			{ glob = true, cd = true } -- glob 模式查找 *.cabal 文件
 		)
 	end,
+	matlab = 'cd "$dir" && matlab -batch "$fileNameWithoutExt"',
 	html = "xdg-open $fullFileName && exit",
 	go = "go run $fileName",
 	ruby = "ruby $fullFileName",
