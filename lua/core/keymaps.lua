@@ -1,15 +1,16 @@
 -- INFO: keybinding helper
+-- Icon Cheat Sheet: https://www.nerdfonts.com/cheat-sheet
 vim.pack.add({ "https://github.com/folke/which-key.nvim" }, { confirm = false })
 local wk = require("which-key")
-local gitsigns = require("gitsigns")
+-- local gitsigns = require("gitsigns")
 -- 0 代表当前活跃的缓冲区
 local bufnr = 0
 
 wk.setup({
 	spec = {
 		{ "<leader>s", group = "[S]earch", icon = { icon = "", color = "green" } },
-		{ "<leader>t", group = "[T]oggle" },
-		{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+		{ "<leader>t", group = "[T]oggle", icon = { icon = "󰦭", color = "orange" } },
+		{ "<leader>g", group = "[G]it", icon = { icon = "", color = "orange" } },
 		-- {
 		-- 	"<leader>tc",
 		-- 	'<cmd>lua require("copilot.suggestion").toggle_auto_trigger()<CR>',
@@ -128,89 +129,97 @@ wk.setup({
 		-- INFO: gitsigns.nvim
 		--
 		-- 导航 (Navigation)
+		-- {
+		-- 	"]c",
+		-- 	function()
+		-- 		if vim.wo.diff then
+		-- 			vim.cmd.normal({ "]c", bang = true })
+		-- 		else
+		-- 			gitsigns.nav_hunk("next")
+		-- 		end
+		-- 	end,
+		-- 	desc = "Next Change",
+		-- 	buffer = bufnr,
+		-- },
+		--
+		-- {
+		-- 	"[c",
+		-- 	function()
+		-- 		if vim.wo.diff then
+		-- 			vim.cmd.normal({ "[c", bang = true })
+		-- 		else
+		-- 			gitsigns.nav_hunk("prev")
+		-- 		end
+		-- 	end,
+		-- 	desc = "Prev Change",
+		-- 	buffer = bufnr,
+		-- },
+		--
+		-- -- Git 操作分组 (Actions)
+		-- -- { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+		-- { "<leader>h", group = "Git Hunk", buffer = bufnr },
+		--
+		-- -- Visual 模式下的操作 (需要单独指定 mode)
+		-- {
+		-- 	"<leader>hs",
+		-- 	function()
+		-- 		gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		-- 	end,
+		-- 	desc = "Stage Hunk",
+		-- 	mode = "v",
+		-- 	buffer = bufnr,
+		-- },
+		-- {
+		-- 	"<leader>hr",
+		-- 	function()
+		-- 		gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		-- 	end,
+		-- 	desc = "Reset Hunk",
+		-- 	mode = "v",
+		-- 	buffer = bufnr,
+		-- },
+		--
+		-- -- Normal 模式下的操作
+		-- { "<leader>hs", gitsigns.stage_hunk, desc = "Stage Hunk", buffer = bufnr },
+		-- { "<leader>hr", gitsigns.reset_hunk, desc = "Reset Hunk", buffer = bufnr },
+		-- { "<leader>hS", gitsigns.stage_buffer, desc = "Stage Buffer", buffer = bufnr },
+		-- { "<leader>hu", gitsigns.undo_stage_hunk, desc = "Undo Stage", buffer = bufnr },
+		-- { "<leader>hR", gitsigns.reset_buffer, desc = "Reset Buffer", buffer = bufnr },
+		-- { "<leader>hp", gitsigns.preview_hunk, desc = "Preview Hunk", buffer = bufnr },
+		-- {
+		-- 	"<leader>hb",
+		-- 	function()
+		-- 		gitsigns.blame_line({ full = true })
+		-- 	end,
+		-- 	desc = "Blame Line",
+		-- 	buffer = bufnr,
+		-- },
+		-- { "<leader>hd", gitsigns.diffthis, desc = "Diff Index", buffer = bufnr },
+		-- {
+		-- 	"<leader>hD",
+		-- 	function()
+		-- 		gitsigns.diffthis("~")
+		-- 	end,
+		-- 	desc = "Diff Last Commit",
+		-- 	buffer = bufnr,
+		-- },
+		--
+		-- -- 开关 (Toggles)
+		-- { "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Toggle Blame", buffer = bufnr },
+		-- { "<leader>tD", gitsigns.toggle_deleted, desc = "Toggle Deleted", buffer = bufnr },
+		-- INFO: https://github.com/sindrets/diffview.nvim
 		{
-			"]c",
-			function()
-				if vim.wo.diff then
-					vim.cmd.normal({ "]c", bang = true })
-				else
-					gitsigns.nav_hunk("next")
-				end
-			end,
-			desc = "Next Change",
-			buffer = bufnr,
+			"<leader>gd",
+			"<cmd>DiffviewOpen<CR>",
+			desc = "[G]it [D]iff",
+			icon = "",
 		},
-
-		{
-			"[c",
-			function()
-				if vim.wo.diff then
-					vim.cmd.normal({ "[c", bang = true })
-				else
-					gitsigns.nav_hunk("prev")
-				end
-			end,
-			desc = "Prev Change",
-			buffer = bufnr,
-		},
-
-		-- Git 操作分组 (Actions)
-		{ "<leader>h", group = "Git Hunk", buffer = bufnr },
-
-		-- Visual 模式下的操作 (需要单独指定 mode)
-		{
-			"<leader>hs",
-			function()
-				gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-			end,
-			desc = "Stage Hunk",
-			mode = "v",
-			buffer = bufnr,
-		},
-		{
-			"<leader>hr",
-			function()
-				gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-			end,
-			desc = "Reset Hunk",
-			mode = "v",
-			buffer = bufnr,
-		},
-
-		-- Normal 模式下的操作
-		{ "<leader>hs", gitsigns.stage_hunk, desc = "Stage Hunk", buffer = bufnr },
-		{ "<leader>hr", gitsigns.reset_hunk, desc = "Reset Hunk", buffer = bufnr },
-		{ "<leader>hS", gitsigns.stage_buffer, desc = "Stage Buffer", buffer = bufnr },
-		{ "<leader>hu", gitsigns.undo_stage_hunk, desc = "Undo Stage", buffer = bufnr },
-		{ "<leader>hR", gitsigns.reset_buffer, desc = "Reset Buffer", buffer = bufnr },
-		{ "<leader>hp", gitsigns.preview_hunk, desc = "Preview Hunk", buffer = bufnr },
-		{
-			"<leader>hb",
-			function()
-				gitsigns.blame_line({ full = true })
-			end,
-			desc = "Blame Line",
-			buffer = bufnr,
-		},
-		{ "<leader>hd", gitsigns.diffthis, desc = "Diff Index", buffer = bufnr },
-		{
-			"<leader>hD",
-			function()
-				gitsigns.diffthis("~")
-			end,
-			desc = "Diff Last Commit",
-			buffer = bufnr,
-		},
-
-		-- 开关 (Toggles)
-		{ "<leader>tb", gitsigns.toggle_current_line_blame, desc = "Toggle Blame", buffer = bufnr },
-		{ "<leader>tD", gitsigns.toggle_deleted, desc = "Toggle Deleted", buffer = bufnr },
 
 		-- INFO: plugin outline.nvim
 		{
 			"<leader>o",
 			"<cmd>Outline<CR>",
-			desc = "Toggle Outline",
+			desc = "[O]utline",
 			icon = "",
 		},
 		-- INFO: plugin 'let-def/texpresso.vim'
@@ -220,7 +229,7 @@ wk.setup({
 			"<leader>S",
 			'<cmd>lua require("spectre").toggle()<CR>',
 			mode = "n",
-			desc = "Toggle Spectre",
+			desc = "[S]pectre",
 			icon = "󰥨",
 		},
 		{
@@ -246,14 +255,24 @@ wk.setup({
 		},
 		-- INFO: plugin 'folke/snacks.nvim'
 		{
-			"<leader>l",
+			"<leader>gl",
 			'<cmd>lua require("snacks").lazygit()<CR>',
-			desc = "[L]azygit",
+			desc = "[G]it [L]azy",
 			mode = "n",
 			icon = "",
 		},
+		{
+			"<leader>z",
+			"<cmd>lua Snacks.zen()<CR>",
+			desc = "[Z]en mode",
+			mode = "n",
+			icon = {
+				color = "blue",
+				icon = "󰼀",
+			},
+		},
 		-- INFO: plugin 'folke/trouble.nvim'
-		{ "<leader>x", group = "Trouble" },
+		{ "<leader>x", group = "Trouble", icon = "" },
 		{
 			"<leader>xx",
 			"<cmd>Trouble diagnostics toggle<cr>",

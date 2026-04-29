@@ -126,6 +126,7 @@ require("blink.cmp").setup({
 	cmdline = {
 		keymap = {
 			preset = "inherit",
+			["<Tab>"] = { "select_and_accept", "snippet_forward", "select_next", "fallback" },
 			["<CR>"] = { "fallback" },
 		},
 		completion = { menu = { auto_show = true } },

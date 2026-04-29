@@ -198,9 +198,9 @@ vim.pack.add({
 	-- highlight TODO/INFO/WARN comments
 	"https://github.com/folke/todo-comments.nvim",
 	-- Deep buffer integration for Git
-	"https://github.com/lewis6991/gitsigns.nvim",
+	-- "https://github.com/lewis6991/gitsigns.nvim",
 	-- git diff view
-	-- "https://github.com/sindrets/diffview.nvim",
+	"https://github.com/sindrets/diffview.nvim",
 	--[[
 f, t, F, T motions:
 
@@ -228,7 +228,7 @@ f, t, F, T motions:
 	"https://github.com/chenyu76/draftsman.nvim",
 	-- A polished, IDE-like, highly-customizable winbar for Neovim with drop-down menus and multiple backends.
 	-- For more information see :h dropbar.
-	"https://github.com/Bekaboo/dropbar.nvim",
+	-- "https://github.com/Bekaboo/dropbar.nvim",
 	-- A search panel for neovim.
 	-- Spectre find the enemy and replace them with dark power.
 	"https://github.com/nvim-pack/nvim-spectre",
@@ -248,7 +248,7 @@ require("nvim-autopairs").setup()
 require("trouble").setup()
 require("ibl").setup()
 require("todo-comments").setup()
-require("gitsigns").setup()
+-- require("gitsigns").setup()
 require("flash").setup()
 require("outline").setup()
 require("draftsman").setup({})
@@ -336,6 +336,7 @@ vim.keymap.set("n", "<C-\\>", smart_splits.move_cursor_previous)
 require("snacks").setup({
 	terminal = { enabled = true },
 	lazygit = { enabled = true },
+	zen = { enabled = true },
 	dashboard = {
 		width = 42,
 		row = nil, -- dashboard position. nil for center

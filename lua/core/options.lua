@@ -115,15 +115,20 @@ vim.api.nvim_create_user_command("OpenInVSCode", function()
 end, {})
 
 -- 使用 VSCode 打开当前文件所在目录
-vim.api.nvim_create_user_command("OpenFolderInVSCode", function()
+vim.api.nvim_create_user_command("OpenDirectoryInVSCode", function()
 	local path = vim.fn.expand("%:p:h")
 	vim.cmd("silent !code " .. vim.fn.fnameescape(path))
 end, {})
 
-vim.api.nvim_create_user_command("OpenFolderInNautilus", function()
+vim.api.nvim_create_user_command("OpenDirectoryInNautilus", function()
 	local path = vim.fn.expand("%:p:h")
 	-- nautilus 是Gnome的文件管理器名字
 	vim.cmd("silent !nautilus " .. vim.fn.fnameescape(path))
+end, {})
+
+vim.api.nvim_create_user_command("OpenConsoleAtCurrentDirectory", function()
+	local path = vim.fn.expand("%:p:h")
+	vim.cmd("silent !kgx " .. vim.fn.fnameescape(path))
 end, {})
 
 -- GUI 文件选择对话框函数 (Functions)
