@@ -1,5 +1,5 @@
 -- quickly run code snippets or files based on their file type.
-local run_matlab_command = require("modules.matlab_server.bridge")
+local get_run_matlab_command = require("modules.matlab_server.bridge")
 
 -- different file types use different commands to run
 -- Three ways to define commands:
@@ -57,7 +57,10 @@ local ft_cmds = {
 			{ glob = true, cd = true } -- glob 模式查找 *.cabal 文件
 		)
 	end,
-	matlab = run_matlab_command,
+	matlab = function()
+		-- 按需运行
+		RunCommand(get_run_matlab_command())
+	end,
 	html = "xdg-open $fullFileName && exit",
 	go = "go run $fileName",
 	ruby = "ruby $fullFileName",
