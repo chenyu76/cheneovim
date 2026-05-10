@@ -251,7 +251,6 @@ require("todo-comments").setup()
 -- require("gitsigns").setup()
 require("flash").setup()
 require("outline").setup()
-require("draftsman").setup({})
 require("local-highlight").setup({
 	-- file_types = { 'python', 'cpp' }, -- If this is given only attach to this
 	-- OR attach to every filetype except:

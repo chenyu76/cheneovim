@@ -84,7 +84,10 @@ luasnip.config.set_config({
 require("snippets.unicode-scripts")
 
 -- INFO: completion engine
-vim.pack.add({ "https://github.com/saghen/blink.cmp" }, { confirm = false })
+vim.pack.add({
+	"https://github.com/saghen/blink.lib",
+	"https://github.com/saghen/blink.cmp",
+}, { confirm = false })
 
 require("blink.cmp").setup({
 	snippets = {
