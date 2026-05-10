@@ -1,4 +1,5 @@
 -- quickly run code snippets or files based on their file type.
+local run_matlab_command = require("modules.matlab_server.bridge")
 
 -- different file types use different commands to run
 -- Three ways to define commands:
@@ -56,11 +57,7 @@ local ft_cmds = {
 			{ glob = true, cd = true } -- glob 模式查找 *.cabal 文件
 		)
 	end,
-	matlab = (function(exePath)
-		local pyExec = exePath .. "bin/python"
-		local pyFile = exePath .. "run_matlab.py"
-		return 'cd "$dir" && ' .. pyExec .. " " .. pyFile .. '  "$fullFileName"'
-	end)(vim.fn.stdpath("config") .. "/bundle/matlab-engine/"),
+	matlab = run_matlab_command,
 	html = "xdg-open $fullFileName && exit",
 	go = "go run $fileName",
 	ruby = "ruby $fullFileName",
