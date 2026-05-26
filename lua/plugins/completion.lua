@@ -33,7 +33,7 @@ require("nvim-treesitter").setup({
 		"latex",
 		"markdown",
 		"markdown_inline",
-		"haskell",
+		-- "haskell",
 		"python",
 		"html",
 	},
@@ -295,7 +295,11 @@ local lsp_servers = {
 			},
 		},
 	},
-	hls = {
+}
+
+if vim.g.current_device == 0 then
+	-- 在x13上hls版本不同
+	lsp_servers["hls"] = {
 		-- 使用Arch Linux系统中已安装的HLS，而不是Mason提供的版本
 		cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper"), "--lsp" },
 		settings = {
@@ -313,8 +317,8 @@ local lsp_servers = {
 				},
 			},
 		},
-	},
-}
+	}
+end
 
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig", -- default configs for lsps
@@ -334,7 +338,10 @@ require("mason-tool-installer").setup({
 })
 
 require("mason-lspconfig").setup({
-	ensure_installed = { "hls", "texlab" },
+	ensure_installed = {
+		-- "hls",
+		"texlab",
+	},
 	automatic_enable = true,
 })
 

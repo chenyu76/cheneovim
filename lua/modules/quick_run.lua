@@ -232,7 +232,11 @@ end
 -- 主函数，根据文件类型选择命令执行
 -- arg 参数可选，传递给脚本
 function RunCurrentFile(arg)
-	vim.cmd("w") -- 先保存文件
+	if vim.bo.readonly then
+		vim.notify("Read only file. Skip write.", vim.log.levels.WARN)
+	else
+		vim.cmd("silent w")
+	end
 
 	local filetype = vim.bo.filetype
 	local ft_cmd = ft_cmds[filetype]

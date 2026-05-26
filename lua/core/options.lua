@@ -177,3 +177,7 @@ vim.o.colorcolumn = "80,100"
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- 当输入 :q 或 :qa 且有未保存的修改时，Neovim 不再报错 E37
+-- 而是弹出是否保存
+vim.opt.confirm = true

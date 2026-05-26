@@ -1,4 +1,4 @@
--- 三个函数
+-- 三个函数，不同设备使用了不同的输入法方案
 local get_im_status -- 获取当前输入法状态 (返回 1 为中文, 0 为英文)
 local recover_im_status -- 根据状态恢复输入法
 local close_im_status -- 强制关闭输入法 (切回英文)
