@@ -14,50 +14,25 @@
 -- vary wildly. refer to each plugin's documentation for details.
 
 -- INFO: formatting and syntax highlighting
-vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" }, { confirm = false })
-
--- equivalent to :TSUpdate
--- require("nvim-treesitter.install").update("all")
-
-require("nvim-treesitter").setup({
-	sync_install = true,
-
-	modules = {},
-	ignore_install = {},
-
-	ensure_installed = {
-		"lua",
-		"c",
-		"rust",
-		"go",
-		"latex",
-		"markdown",
-		"markdown_inline",
-		-- "haskell",
-		"python",
-		"html",
-	},
-
-	auto_install = true, -- autoinstall languages that are not installed yet
-
-	highlight = {
-		enable = true,
-	},
+vim.pack.add({
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 })
 
--- From https://github.com/nvim-treesitter/nvim-treesitter/issues/8221#issuecomment-3436658280
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function(args)
-		local treesitter = require("nvim-treesitter")
-		local lang = vim.treesitter.language.get_lang(args.match)
-		if vim.list_contains(treesitter.get_available(), lang) then
-			if not vim.list_contains(treesitter.get_installed(), lang) then
-				treesitter.install(lang):wait()
-			end
-			vim.treesitter.start(args.buf)
-		end
-	end,
-	desc = "Enable nvim-treesitter and install parser if not installed",
+require("tree-sitter-manager").setup({
+	-- Default Options
+	-- ensure_installed = {}, -- list of parsers to install at the start of a neovim session. If set to "all", install all parsers.
+	-- border = nil, -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+	-- auto_install = true, -- if enabled, install missing parsers when editing a new file
+	-- highlight = true, -- treesitter highlighting is enabled by default
+	-- https://github.com/tree-sitter/tree-sitter-haskell/issues/158
+	languages = {
+		haskell = {
+			install_info = {
+				url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
+				use_repo_queries = true,
+			},
+		},
+	},
 })
 
 vim.pack.add({
@@ -291,6 +266,23 @@ local lsp_servers = {
 				forwardSearch = {
 					executable = vim.fn.stdpath("config") .. "/bundle/evince-synctex/evince_synctex.py",
 					args = { "-f", "%l", "%p", '"texlab -i %f -l %l"' },
+				},
+			},
+		},
+	},
+	hls = {
+		settings = {
+			haskell = {
+				plugin = {
+					inlayHints = {
+						globalOn = true,
+						config = {
+							typeHints = true,
+							parameterHints = true,
+							localDefinitionHints = true,
+							bindingHints = true,
+						},
+					},
 				},
 			},
 		},
