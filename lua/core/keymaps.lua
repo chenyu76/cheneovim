@@ -25,6 +25,7 @@ wk.setup({
 		-- { '<leader>n', '<cmd>Neotree reveal toggle dir=./<CR>', desc = '[N]eotree', mode = 'n', icon = '' },
 		{ "<C-n>", "<cmd>Neotree reveal toggle dir=./<CR>", desc = "[N]eotree", mode = "n", icon = "" },
 		{ "<C-.>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
+		{ "<F4>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
 		-- { "<F4>", "<cmd>lua Snacks.terminal.toggle()<CR>", desc = "Terminal", mode = "n", icon = "" },
 		-- { '<leader>e', '<cmd>ToggleTerm<CR>', desc = 'Terminal [e]mulator', mode = 'n', icon = '' },
 		-- { '<C-n>', '<cmd>Neotree reveal toggle dir=./<CR>', desc = '[N]eotree', mode = { 'n', 'i' }, icon = '' },
@@ -32,6 +33,23 @@ wk.setup({
 		-- { '<F4>', '<cmd>ToggleTerm<CR>', desc = 'Terminal', mode = { 'n', 'i', 't' }, icon = '' },
 		-- INFO: modules.view_corresponding_pdf
 		{ "<leader>tp", "<cmd>lua ViewCorrespondingPDF()<CR>", desc = "[Trigger] PDF", mode = "n", icon = "" },
+		-- INFO: modules.deepseek
+		{
+			"<leader>a",
+			function()
+				_G.AskDeepSeek(false)
+			end,
+			mode = "n",
+			icon = "",
+			desc = "[A]sk DeepSeek",
+		},
+		{
+			"<leader>a",
+			":<C-u>lua _G.AskDeepSeek(true)<CR>",
+			mode = "v",
+			icon = "",
+			desc = "[A]sk DeepSeek",
+		},
 		-- INFO: modules.quick_run
 		{ "<leader>r", "<cmd>lua RunCurrentFile()<CR>", desc = "[R]un file", mode = "n", icon = "" },
 		{

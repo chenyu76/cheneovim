@@ -3,73 +3,106 @@ local get_im_status -- 获取当前输入法状态 (返回 1 为中文, 0 为英
 local recover_im_status -- 根据状态恢复输入法
 local close_im_status -- 强制关闭输入法 (切回英文)
 
-if vim.g.current_device == 1 then
-  -- ibus输入法: rime 和 xkb:us::eng
-  get_im_status = function()
-    -- system 返回的结果通常带换行符，需要 trim
-    local engine = vim.trim(vim.fn.system 'ibus engine')
-    if engine == 'rime' then
-      return 1
-    else
-      return 0
-    end
-  end
+if vim.g.current_device == 2 then
+	-- ibus输入法: rime 和 xkb:us::eng
+	get_im_status = function()
+		-- system 返回的结果通常带换行符，需要 trim
+		local engine = vim.trim(vim.fn.system("ibus engine"))
+		if engine == "rime" then
+			return 1
+		else
+			return 0
+		end
+	end
 
-  recover_im_status = function()
-    if vim.g.my_im_status == 1 then
-      vim.fn.system 'ibus engine rime'
-    end
-  end
+	recover_im_status = function()
+		if vim.g.my_im_status == 1 then
+			vim.fn.system("ibus engine rime")
+		end
+	end
 
-  close_im_status = function()
-    print(vim.fn.system 'ibus engine rime')
-    vim.fn.system 'ibus engine xkb:us::eng'
-  end
+	close_im_status = function()
+		-- print(vim.fn.system("ibus engine rime"))
+		vim.fn.system("ibus engine xkb:us::eng")
+	end
+elseif vim.g.current_device == 1 then
+	-- 需要安装
+	-- https://extensions.gnome.org/extension/6547/input-source-d-bus-interface/
+	-- 见
+	-- https://github.com/herrscher-of-sleeping/gnome-input-source-dbus-interface
+
+	get_im_status = function()
+		-- system 返回的结果通常带换行符，需要 trim
+		local engine = vim.trim(
+			vim.fn.system(
+				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Get"
+			)
+		)
+		if engine == "('rime',)" then
+			return 1
+		else
+			return 0
+		end
+	end
+
+	recover_im_status = function()
+		if vim.g.my_im_status == 1 then
+			vim.fn.system(
+				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
+			)
+		end
+	end
+
+	close_im_status = function()
+		-- print(vim.fn.system("ibus engine rime"))
+		vim.fn.system(
+			"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set us"
+		)
+	end
 else
-  -- fcitx5输入法: pinyin (通过 fcitx5-remote 控制)
+	-- fcitx5输入法: pinyin (通过 fcitx5-remote 控制)
+	get_im_status = function()
+		local state = vim.fn.system("/usr/bin/fcitx5-remote -n")
+		if state:match("pinyin") then
+			return 1
+		else
+			return 0
+		end
+	end
 
-  get_im_status = function()
-    local state = vim.fn.system '/usr/bin/fcitx5-remote -n'
-    if state:match 'pinyin' then
-      return 1
-    else
-      return 0
-    end
-  end
+	recover_im_status = function()
+		if vim.g.my_im_status == 1 then
+			vim.fn.system("/usr/bin/fcitx5-remote -o")
+		end
+	end
 
-  recover_im_status = function()
-    if vim.g.my_im_status == 1 then
-      vim.fn.system '/usr/bin/fcitx5-remote -o'
-    end
-  end
-
-  close_im_status = function()
-    vim.fn.system '/usr/bin/fcitx5-remote -c'
-  end
+	close_im_status = function()
+		vim.fn.system("/usr/bin/fcitx5-remote -c")
+	end
 end
 
 -- 初始化变量
 vim.g.my_im_status = get_im_status()
 
 -- 离开插入模式：保存当前状态，并强制切回英文
-vim.api.nvim_create_autocmd('InsertLeave', {
-  pattern = '*',
-  callback = function()
-    vim.g.my_im_status = get_im_status()
-    close_im_status()
-  end,
+vim.api.nvim_create_autocmd("InsertLeave", {
+	pattern = "*",
+	callback = function()
+		vim.g.my_im_status = get_im_status()
+		close_im_status()
+	end,
 })
 
 -- 进入插入模式：如果之前是中文，则恢复中文
-vim.api.nvim_create_autocmd('InsertEnter', {
-  pattern = '*',
-  callback = recover_im_status,
+vim.api.nvim_create_autocmd("InsertEnter", {
+	pattern = "*",
+	callback = recover_im_status,
 })
 
 -- 切换 Buffer 或新建文件时：强制切回英文，避免干扰
-vim.api.nvim_create_autocmd({ 'BufCreate', 'BufEnter', 'BufLeave' }, {
-  pattern = '*',
-  callback = close_im_status,
+vim.api.nvim_create_autocmd({ "BufCreate", "BufEnter", "BufLeave" }, {
+	pattern = "*",
+	callback = close_im_status,
 })
 
 -- 在插入模式下连续输入两个空格时，自动切换输入法
