@@ -199,7 +199,7 @@ vim.pack.add({
 	-- highlight TODO/INFO/WARN comments
 	"https://github.com/folke/todo-comments.nvim",
 	-- Deep buffer integration for Git
-	-- "https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
 	-- git diff view
 	"https://github.com/sindrets/diffview.nvim",
 	--[[
@@ -249,7 +249,7 @@ require("nvim-autopairs").setup()
 require("trouble").setup()
 require("ibl").setup()
 require("todo-comments").setup()
--- require("gitsigns").setup()
+require("gitsigns").setup()
 require("flash").setup()
 require("outline").setup()
 require("local-highlight").setup({
