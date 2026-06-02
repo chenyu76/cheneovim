@@ -336,3 +336,6 @@ vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" }
 vim.keymap.set("n", "<leader>sp", "<cmd>Telescope projects<cr>", { desc = "[S]earch [P]roject" })
 vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+
+-- Use jj to exit insert mode
+vim.keymap.set("i", "jj", "<ESC>", { silent = true })
