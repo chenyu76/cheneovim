@@ -47,7 +47,7 @@ function _G.AskDeepSeek(is_visual)
 			messages = {
 				{
 					role = "system",
-					content = "You are a helpful assistant. Please output your response directly without unnecessary wrapper text.",
+					content = "You are a helpful assistant. Please output your response directly without unnecessary wrapper text and be concise.",
 				},
 				{ role = "user", content = final_prompt },
 			},
