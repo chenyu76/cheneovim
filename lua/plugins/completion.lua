@@ -58,19 +58,19 @@ luasnip.config.set_config({
 	ext_opts = {
 		[snip_types.insertNode] = {
 			unvisited = {
-				virt_text = { { "󰌒 tab", "Comment" } },
+				virt_text = { { "[󰌒 tab]", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},
 		[snip_types.exitNode] = {
 			unvisited = {
-				virt_text = { { "󰌒 tab", "Comment" } },
+				virt_text = { { "[󰌒 tab]", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},
 		[snip_types.choiceNode] = {
 			unvisited = {
-				virt_text = { { "󰌒 tab", "Comment" } },
+				virt_text = { { "[󰌒 tab]", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},

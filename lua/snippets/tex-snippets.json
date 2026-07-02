@@ -31,6 +31,10 @@
     "prefix": "rm",
     "body": "\\textrm{${1}}$0"
   },
+  "textcolor": {
+    "prefix": "color",
+    "body": "\\textcolor{${1:red}}{${2}}$0"
+  },
   "section": {
     "prefix": "sec",
     "body": "\\section{${1}}$0"
@@ -54,6 +58,10 @@
   "sqrt": {
     "prefix": "sqrt",
     "body": "\\sqrt{${1}}$0"
+  },
+  "()": {
+    "prefix": "left()",
+    "body": "\\left(${1}\\right)$0"
   },
   "sum": {
     "prefix": "sum",
@@ -166,11 +174,7 @@
   },
   "alertblock": {
     "prefix": "ablk",
-    "body": [
-      "\\begin{alertblock}{${1:title}}",
-      "\t$0",
-      "\\end{alertblock}"
-    ]
+    "body": ["\\begin{alertblock}{${1:title}}", "\t$0", "\\end{alertblock}"]
   },
   "beamertitle": {
     "prefix": "btitle",
@@ -205,5 +209,761 @@
   "example": {
     "prefix": "ex",
     "body": ["\\begin{example}", "\t$0", "\\end{example}"]
+  },
+  "alpha": {
+    "prefix": "alpha",
+    "body": "\\alpha $0"
+  },
+  "beta": {
+    "prefix": "beta",
+    "body": "\\beta $0"
+  },
+  "gamma": {
+    "prefix": "gamma",
+    "body": "\\gamma $0"
+  },
+  "Gamma": {
+    "prefix": "Gamma",
+    "body": "\\Gamma $0"
+  },
+  "delta": {
+    "prefix": "delta",
+    "body": "\\delta $0"
+  },
+  "Delta": {
+    "prefix": "Delta",
+    "body": "\\Delta $0"
+  },
+  "epsilon": {
+    "prefix": "epsilon",
+    "body": "\\epsilon $0"
+  },
+  "varepsilon": {
+    "prefix": "varepsilon",
+    "body": "\\varepsilon $0"
+  },
+  "zeta": {
+    "prefix": "zeta",
+    "body": "\\zeta $0"
+  },
+  "eta": {
+    "prefix": "eta",
+    "body": "\\eta $0"
+  },
+  "theta": {
+    "prefix": "theta",
+    "body": "\\theta $0"
+  },
+  "Theta": {
+    "prefix": "Theta",
+    "body": "\\Theta $0"
+  },
+  "vartheta": {
+    "prefix": "vartheta",
+    "body": "\\vartheta $0"
+  },
+  "iota": {
+    "prefix": "iota",
+    "body": "\\iota $0"
+  },
+  "kappa": {
+    "prefix": "kappa",
+    "body": "\\kappa $0"
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": "\\lambda $0"
+  },
+  "Lambda": {
+    "prefix": "Lambda",
+    "body": "\\Lambda $0"
+  },
+  "mu": {
+    "prefix": "mu",
+    "body": "\\mu $0"
+  },
+  "nu": {
+    "prefix": "nu",
+    "body": "\\nu $0"
+  },
+  "xi": {
+    "prefix": "xi",
+    "body": "\\xi $0"
+  },
+  "Xi": {
+    "prefix": "Xi",
+    "body": "\\Xi $0"
+  },
+  "pi": {
+    "prefix": "pii",
+    "body": "\\pi $0"
+  },
+  "Pi": {
+    "prefix": "Pi",
+    "body": "\\Pi $0"
+  },
+  "rho": {
+    "prefix": "rho",
+    "body": "\\rho $0"
+  },
+  "varrho": {
+    "prefix": "varrho",
+    "body": "\\varrho $0"
+  },
+  "sigma": {
+    "prefix": "sigma",
+    "body": "\\sigma $0"
+  },
+  "Sigma": {
+    "prefix": "Sigma",
+    "body": "\\Sigma $0"
+  },
+  "tau": {
+    "prefix": "tau",
+    "body": "\\tau $0"
+  },
+  "upsilon": {
+    "prefix": "upsilon",
+    "body": "\\upsilon $0"
+  },
+  "Upsilon": {
+    "prefix": "Upsilon",
+    "body": "\\Upsilon $0"
+  },
+  "phi": {
+    "prefix": "phi",
+    "body": "\\phi $0"
+  },
+  "Phi": {
+    "prefix": "Phi",
+    "body": "\\Phi $0"
+  },
+  "varphi": {
+    "prefix": "varphi",
+    "body": "\\varphi $0"
+  },
+  "chi": {
+    "prefix": "chi",
+    "body": "\\chi $0"
+  },
+  "psi": {
+    "prefix": "psi",
+    "body": "\\psi $0"
+  },
+  "Psi": {
+    "prefix": "Psi",
+    "body": "\\Psi $0"
+  },
+  "omega": {
+    "prefix": "omega",
+    "body": "\\omega $0"
+  },
+  "Omega": {
+    "prefix": "Omega",
+    "body": "\\Omega $0"
+  },
+  "infty": {
+    "prefix": "infty",
+    "body": "\\infty $0"
+  },
+  "partial": {
+    "prefix": "partial",
+    "body": "\\partial $0"
+  },
+  "nabla": {
+    "prefix": "nabla",
+    "body": "\\nabla $0"
+  },
+  "forall": {
+    "prefix": "forall",
+    "body": "\\forall $0"
+  },
+  "exists": {
+    "prefix": "exists",
+    "body": "\\exists $0"
+  },
+  "nexists": {
+    "prefix": "nexists",
+    "body": "\\nexists $0"
+  },
+  "emptyset": {
+    "prefix": "emptyset",
+    "body": "\\emptyset $0"
+  },
+  "varnothing": {
+    "prefix": "varnothing",
+    "body": "\\varnothing $0"
+  },
+  "cdot": {
+    "prefix": "cdot",
+    "body": "\\cdot $0"
+  },
+  "cdots": {
+    "prefix": "cdots",
+    "body": "\\cdots $0"
+  },
+  "ldots": {
+    "prefix": "lcdots",
+    "body": "\\ldots $0"
+  },
+  "vdots": {
+    "prefix": "vdots",
+    "body": "\\vdots $0"
+  },
+  "ddots": {
+    "prefix": "ddots",
+    "body": "\\ddots $0"
+  },
+  "approx": {
+    "prefix": "approx",
+    "body": "\\approx $0"
+  },
+  "sim": {
+    "prefix": "sim",
+    "body": "\\sim $0"
+  },
+  "simeq": {
+    "prefix": "simeq",
+    "body": "\\simeq $0"
+  },
+  "equiv": {
+    "prefix": "equiv",
+    "body": "\\equiv $0"
+  },
+  "propto": {
+    "prefix": "propto",
+    "body": "\\propto $0"
+  },
+  "leq": {
+    "prefix": "leq",
+    "body": "\\leq $0"
+  },
+  "geq": {
+    "prefix": "geq",
+    "body": "\\geq $0"
+  },
+  "ll": {
+    "prefix": "lll",
+    "body": "\\ll $0"
+  },
+  "gg": {
+    "prefix": "ggg",
+    "body": "\\gg $0"
+  },
+  "neq": {
+    "prefix": "neq",
+    "body": "\\neq $0"
+  },
+  "subset": {
+    "prefix": "subset",
+    "body": "\\subset $0"
+  },
+  "supset": {
+    "prefix": "supset",
+    "body": "\\supset $0"
+  },
+  "subseteq": {
+    "prefix": "subseteq",
+    "body": "\\subseteq $0"
+  },
+  "supseteq": {
+    "prefix": "supseteq",
+    "body": "\\supseteq $0"
+  },
+  "in": {
+    "prefix": "inn",
+    "body": "\\in $0"
+  },
+  "notin": {
+    "prefix": "notin",
+    "body": "\\notin $0"
+  },
+  "cup": {
+    "prefix": "cup",
+    "body": "\\cup $0"
+  },
+  "cap": {
+    "prefix": "cap",
+    "body": "\\cap $0"
+  },
+  "setminus": {
+    "prefix": "setminus",
+    "body": "\\setminus $0"
+  },
+  "to": {
+    "prefix": "too",
+    "body": "\\to $0"
+  },
+  "mapsto": {
+    "prefix": "mapsto",
+    "body": "\\mapsto $0"
+  },
+  "implies": {
+    "prefix": "implies",
+    "body": "\\implies $0"
+  },
+  "iff": {
+    "prefix": "iff",
+    "body": "\\iff $0"
+  },
+  "Rightarrow": {
+    "prefix": "Rightarrow",
+    "body": "\\Rightarrow $0"
+  },
+  "Leftrightarrow": {
+    "prefix": "Leftrightarrow",
+    "body": "\\Leftrightarrow $0"
+  },
+  "times": {
+    "prefix": "timess",
+    "body": "\\times $0"
+  },
+  "pm": {
+    "prefix": "pm",
+    "body": "\\pm $0"
+  },
+  "mp": {
+    "prefix": "mp",
+    "body": "\\mp $0"
+  },
+  "circ": {
+    "prefix": "circ",
+    "body": "\\circ $0"
+  },
+  "bullet": {
+    "prefix": "bullet",
+    "body": "\\bullet $0"
+  },
+  "star": {
+    "prefix": "star",
+    "body": "\\star $0"
+  },
+  "wedge": {
+    "prefix": "wedge",
+    "body": "\\wedge $0"
+  },
+  "vee": {
+    "prefix": "vee",
+    "body": "\\vee $0"
+  },
+  "neg": {
+    "prefix": "neg",
+    "body": "\\neg $0"
+  },
+  "sin": {
+    "prefix": "ssin",
+    "body": "\\sin ${1}$0"
+  },
+  "cos": {
+    "prefix": "ccos",
+    "body": "\\cos ${1}$0"
+  },
+  "tan": {
+    "prefix": "ttan",
+    "body": "\\tan ${1}$0"
+  },
+  "log": {
+    "prefix": "llog",
+    "body": "\\log ${1}$0"
+  },
+  "ln": {
+    "prefix": "lln",
+    "body": "\\ln ${1}$0"
+  },
+  "max": {
+    "prefix": "mmax",
+    "body": "\\max ${1}$0"
+  },
+  "min": {
+    "prefix": "mmin",
+    "body": "\\min ${1}$0"
+  },
+  "sup": {
+    "prefix": "ssup",
+    "body": "\\sup ${1}$0"
+  },
+  "inf": {
+    "prefix": "iinf",
+    "body": "\\inf ${1}$0"
+  },
+  "argmax": {
+    "prefix": "argmax",
+    "body": "\\arg\\max ${1}$0"
+  },
+  "argmin": {
+    "prefix": "argmin",
+    "body": "\\arg\\min ${1}$0"
+  },
+  "det": {
+    "prefix": "ddet",
+    "body": "\\det ${1}$0"
+  },
+  "gcd": {
+    "prefix": "ggcd",
+    "body": "\\gcd ${1}$0"
+  },
+  "lcm": {
+    "prefix": "llcm",
+    "body": "\\operatorname{lcm}${1}$0"
+  },
+  "mathbb": {
+    "prefix": "mb",
+    "body": "\\mathbb{${1:N}}$0"
+  },
+  "mathcal": {
+    "prefix": "mc",
+    "body": "\\mathcal{${1}}$0"
+  },
+  "mathfrak": {
+    "prefix": "mf",
+    "body": "\\mathfrak{${1}}$0"
+  },
+  "mathbf": {
+    "prefix": "mbf",
+    "body": "\\mathbf{${1}}$0"
+  },
+  "mathrm": {
+    "prefix": "mrm",
+    "body": "\\mathrm{${1}}$0"
+  },
+  "mathit": {
+    "prefix": "mit",
+    "body": "\\mathit{${1}}$0"
+  },
+  "mathsf": {
+    "prefix": "msf",
+    "body": "\\mathsf{${1}}$0"
+  },
+  "mathtt": {
+    "prefix": "mtt",
+    "body": "\\mathtt{${1}}$0"
+  },
+  "mathscr": {
+    "prefix": "mscr",
+    "body": "\\mathscr{${1}}$0"
+  },
+  "hat": {
+    "prefix": "hat",
+    "body": "\\hat{${1}}$0"
+  },
+  "bar": {
+    "prefix": "bbar",
+    "body": "\\bar{${1}}$0"
+  },
+  "vec": {
+    "prefix": "vec",
+    "body": "\\vec{${1}}$0"
+  },
+  "dot": {
+    "prefix": "ddot",
+    "body": "\\dot{${1}}$0"
+  },
+  "ddot": {
+    "prefix": "dddot",
+    "body": "\\ddot{${1}}$0"
+  },
+  "tilde": {
+    "prefix": "ttilde",
+    "body": "\\tilde{${1}}$0"
+  },
+  "widetilde": {
+    "prefix": "widetilde",
+    "body": "\\widetilde{${1}}$0"
+  },
+  "widehat": {
+    "prefix": "widehat",
+    "body": "\\widehat{${1}}$0"
+  },
+  "overline": {
+    "prefix": "ol",
+    "body": "\\overline{${1}}$0"
+  },
+  "underline_math": {
+    "prefix": "ulm",
+    "body": "\\underline{${1}}$0"
+  },
+  "overbrace": {
+    "prefix": "overbrace",
+    "body": "\\overbrace{${1}}^{${2}}$0"
+  },
+  "underbrace": {
+    "prefix": "underbrace",
+    "body": "\\underbrace{${1}}_{${2}}$0"
+  },
+  "left_bracket": {
+    "prefix": "left[",
+    "body": "\\left[${1}\\right]$0"
+  },
+  "left_brace": {
+    "prefix": "left{",
+    "body": "\\left\\{${1}\\right\\}$0"
+  },
+  "left_vert": {
+    "prefix": "left|",
+    "body": "\\left|${1}\\right|$0"
+  },
+  "left_norm": {
+    "prefix": "left||",
+    "body": "\\left\\|${1}\\right\\|$0"
+  },
+  "left_angle": {
+    "prefix": "left<",
+    "body": "\\left\\langle${1}\\right\\rangle$0"
+  },
+  "left_ceil": {
+    "prefix": "leftc",
+    "body": "\\left\\lceil${1}\\right\\rceil$0"
+  },
+  "left_floor": {
+    "prefix": "leftf",
+    "body": "\\left\\lfloor${1}\\right\\rfloor$0"
+  },
+  "pmatrix": {
+    "prefix": "pmat",
+    "body": ["\\begin{pmatrix}", "\t${1}", "\\end{pmatrix}$0"]
+  },
+  "bmatrix": {
+    "prefix": "bmat",
+    "body": ["\\begin{bmatrix}", "\t${1}", "\\end{bmatrix}$0"]
+  },
+  "Bmatrix": {
+    "prefix": "Bmat",
+    "body": ["\\begin{Bmatrix}", "\t${1}", "\\end{Bmatrix}$0"]
+  },
+  "vmatrix": {
+    "prefix": "vmat",
+    "body": ["\\begin{vmatrix}", "\t${1}", "\\end{vmatrix}$0"]
+  },
+  "Vmatrix": {
+    "prefix": "Vmat",
+    "body": ["\\begin{Vmatrix}", "\t${1}", "\\end{Vmatrix}$0"]
+  },
+  "cases": {
+    "prefix": "cases",
+    "body": ["\\begin{cases}", "\t${1}", "\\end{cases}$0"]
+  },
+  "subcript": {
+    "prefix": "_",
+    "body": "_{${1}}$0"
+  },
+  "superscript": {
+    "prefix": "^",
+    "body": "^{${1}}$0"
+  },
+  "sub_super": {
+    "prefix": "sub",
+    "body": "_{${1}}^{${2}}$0"
+  },
+  "text_math": {
+    "prefix": "tex",
+    "body": "\\text{${1}}$0"
+  },
+  "binom": {
+    "prefix": "binom",
+    "body": "\\binom{${1}}{${2}}$0"
+  },
+  "dbinom": {
+    "prefix": "dbinom",
+    "body": "\\dbinom{${1}}{${2}}$0"
+  },
+  "stackrel": {
+    "prefix": "stack",
+    "body": "\\stackrel{${1}}{${2}}$0"
+  },
+  "overset": {
+    "prefix": "overset",
+    "body": "\\overset{${1}}{${2}}$0"
+  },
+  "underset": {
+    "prefix": "underset",
+    "body": "\\underset{${1}}{${2}}$0"
+  },
+  "xrightarrow": {
+    "prefix": "xrightarrow",
+    "body": "\\xrightarrow{${1}}$0"
+  },
+  "xleftarrow": {
+    "prefix": "xleftarrow",
+    "body": "\\xleftarrow{${1}}$0"
+  },
+  "sqrt_n": {
+    "prefix": "sqrtn",
+    "body": "\\sqrt[${1}]{${2}}$0"
+  },
+  "int_limits": {
+    "prefix": "inti",
+    "body": "\\int\\limits_{${1}}^{${2}}$0"
+  },
+  "sum_limits": {
+    "prefix": "suml",
+    "body": "\\sum\\limits_{${1}}^{${2}}$0"
+  },
+  "prod_limits": {
+    "prefix": "prodl",
+    "body": "\\prod\\limits_{${1}}^{${2}}$0"
+  },
+  "lim_sub": {
+    "prefix": "lims",
+    "body": "\\lim_{${1}\\to ${2}}$0"
+  },
+  "bigcup": {
+    "prefix": "bigcup",
+    "body": "\\bigcup_{${1}}^{${2}}$0"
+  },
+  "bigcap": {
+    "prefix": "bigcap",
+    "body": "\\bigcap_{${1}}^{${2}}$0"
+  },
+  "bigvee": {
+    "prefix": "bigvee",
+    "body": "\\bigvee_{${1}}^{${2}}$0"
+  },
+  "bigwedge": {
+    "prefix": "bigwedge",
+    "body": "\\bigwedge_{${1}}^{${2}}$0"
+  },
+  "bigoplus": {
+    "prefix": "bigoplus",
+    "body": "\\bigoplus_{${1}}^{${2}}$0"
+  },
+  "bigotimes": {
+    "prefix": "bigotimes",
+    "body": "\\bigotimes_{${1}}^{${2}}$0"
+  },
+  "bigodot": {
+    "prefix": "bigodot",
+    "body": "\\bigodot_{${1}}^{${2}}$0"
+  },
+  "gather": {
+    "prefix": "gath",
+    "body": ["\\begin{gather}", "\t$0", "\\end{gather}"]
+  },
+  "gather_star": {
+    "prefix": "gaths",
+    "body": ["\\begin{gather*}", "\t$0", "\\end{gather*}"]
+  },
+  "multline": {
+    "prefix": "mln",
+    "body": ["\\begin{multline}", "\t$0", "\\end{multline}"]
+  },
+  "multline_star": {
+    "prefix": "mlns",
+    "body": ["\\begin{multline*}", "\t$0", "\\end{multline*}"]
+  },
+  "split": {
+    "prefix": "spl",
+    "body": ["\\begin{split}", "\t$0", "\\end{split}"]
+  },
+  "DeclareMathOperator": {
+    "prefix": "DMO",
+    "body": "\\DeclareMathOperator{\\${1}}{${2}}$0"
+  },
+  "operatorname": {
+    "prefix": "opn",
+    "body": "\\operatorname{${1}}$0"
+  },
+  "mathbb_R": {
+    "prefix": "RR",
+    "body": "\\mathbb{R}$0"
+  },
+  "mathbb_N": {
+    "prefix": "NN",
+    "body": "\\mathbb{N}$0"
+  },
+  "mathbb_Z": {
+    "prefix": "ZZ",
+    "body": "\\mathbb{Z}$0"
+  },
+  "mathbb_Q": {
+    "prefix": "QQ",
+    "body": "\\mathbb{Q}$0"
+  },
+  "mathbb_C": {
+    "prefix": "CC",
+    "body": "\\mathbb{C}$0"
+  },
+  "to_infty": {
+    "prefix": "toi",
+    "body": "\\to \\infty$0"
+  },
+  "varepsilon": {
+    "prefix": "veps",
+    "body": "\\varepsilon $0"
+  },
+  "textsubscript": {
+    "prefix": "tsub",
+    "body": "\\textsubscript{${1}}$0"
+  },
+  "textsuperscript": {
+    "prefix": "tsup",
+    "body": "\\textsuperscript{${1}}$0"
+  },
+  "bigl_par": {
+    "prefix": "bigl(",
+    "body": "\\bigl(${1}\\bigr)$0"
+  },
+  "bigl_bracket": {
+    "prefix": "bigl[",
+    "body": "\\bigl[${1}\\bigr]$0"
+  },
+  "bigl_brace": {
+    "prefix": "bigl{",
+    "body": "\\bigl\\{${1}\\bigr\\}$0"
+  },
+  "Bigl_par": {
+    "prefix": "Bigl(",
+    "body": "\\Bigl(${1}\\Bigr)$0"
+  },
+  "Bigl_bracket": {
+    "prefix": "Bigl[",
+    "body": "\\Bigl[${1}\\Bigr]$0"
+  },
+  "Bigl_brace": {
+    "prefix": "Bigl{",
+    "body": "\\Bigl\\{${1}\\Bigr\\}$0"
+  },
+  "biggl_par": {
+    "prefix": "biggl(",
+    "body": "\\biggl(${1}\\biggr)$0"
+  },
+  "biggl_bracket": {
+    "prefix": "biggl[",
+    "body": "\\biggl[${1}\\biggr]$0"
+  },
+  "biggl_brace": {
+    "prefix": "biggl{",
+    "body": "\\biggl\\{${1}\\biggr\\}$0"
+  },
+  "Biggl_par": {
+    "prefix": "Biggl(",
+    "body": "\\Biggl(${1}\\Biggr)$0"
+  },
+  "Biggl_bracket": {
+    "prefix": "Biggl[",
+    "body": "\\Biggl[${1}\\Biggr]$0"
+  },
+  "Biggl_brace": {
+    "prefix": "Biggl{",
+    "body": "\\Biggl\\{${1}\\Biggr\\}$0"
+  },
+  "frac_inline": {
+    "prefix": "trac",
+    "body": "\\tfrac{${1}}{${2}}$0"
+  },
+  "mathop": {
+    "prefix": "mop",
+    "body": "\\mathop{${1}}$0"
+  },
+  "mid": {
+    "prefix": "mid",
+    "body": "\\mid $0"
+  },
+  "lvert_rvert": {
+    "prefix": "abs",
+    "body": "\\lvert ${1} \\rvert$0"
+  },
+  "lVert_rVert": {
+    "prefix": "norm",
+    "body": "\\lVert ${1} \\rVert$0"
   }
 }
