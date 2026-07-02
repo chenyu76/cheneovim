@@ -113,7 +113,16 @@ require("blink.cmp").setup({
 		["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
 		["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
 		["<CR>"] = { "select_and_accept", "fallback" },
-		["<Esc>"] = { "cancel", "hide_documentation", "fallback" },
+		["<Esc>"] = {
+			function(cmp)
+				if cmp.is_visible() then
+					cmp.cancel()
+				end
+				cmp.hide_documentation()
+				return false -- always continue to fallback
+			end,
+			"fallback",
+		},
 
 		["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 
