@@ -15,6 +15,14 @@
           "conf"
         ],
         "path": "./LaTeX-to-Unicode.json"
+      },
+      {
+        "language": [
+          "tex",
+          "latex",
+          "plaintex"
+        ],
+        "path": "./tex-snippets.json"
       }
     ]
   }

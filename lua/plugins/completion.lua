@@ -26,12 +26,12 @@ require("tree-sitter-manager").setup({
 	-- highlight = true, -- treesitter highlighting is enabled by default
 	-- https://github.com/tree-sitter/tree-sitter-haskell/issues/158
 	languages = {
-		haskell = {
-			install_info = {
-				url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
-				use_repo_queries = true,
-			},
-		},
+		-- haskell = {
+		-- 	install_info = {
+		-- 		url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
+		-- 		use_repo_queries = true,
+		-- 	},
+		-- },
 	},
 })
 
@@ -50,12 +50,35 @@ vim.pack.add({
 -- cd ~/.local/share/nvim/site/pack/core/opt/LuaSnip
 -- make install_jsregexp
 
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/snippets" } })
 local luasnip = require("luasnip")
+local snip_types = require("luasnip.util.types")
+
 luasnip.config.set_config({
 	enable_autosnippets = true,
+	ext_opts = {
+		[snip_types.insertNode] = {
+			unvisited = {
+				virt_text = { { "○", "Comment" } },
+				virt_text_pos = "inline",
+			},
+		},
+		[snip_types.exitNode] = {
+			unvisited = {
+				virt_text = { { "○", "Comment" } },
+				virt_text_pos = "inline",
+			},
+		},
+		[snip_types.choiceNode] = {
+			unvisited = {
+				virt_text = { { "◎", "Comment" } },
+				virt_text_pos = "inline",
+			},
+		},
+	},
 })
+
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/snippets" } })
 require("snippets.unicode-scripts")
 
 -- INFO: completion engine
