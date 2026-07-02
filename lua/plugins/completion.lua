@@ -58,19 +58,19 @@ luasnip.config.set_config({
 	ext_opts = {
 		[snip_types.insertNode] = {
 			unvisited = {
-				virt_text = { { "○", "Comment" } },
+				virt_text = { { "󰌒 tab", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},
 		[snip_types.exitNode] = {
 			unvisited = {
-				virt_text = { { "○", "Comment" } },
+				virt_text = { { "󰌒 tab", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},
 		[snip_types.choiceNode] = {
 			unvisited = {
-				virt_text = { { "◎", "Comment" } },
+				virt_text = { { "󰌒 tab", "Comment" } },
 				virt_text_pos = "inline",
 			},
 		},
@@ -90,6 +90,12 @@ vim.pack.add({
 require("blink.cmp").setup({
 	snippets = {
 		preset = "luasnip",
+	},
+	sources = {
+		providers = {
+			snippets = { score_offset = 4 },
+			buffer = { score_offset = -3 },
+		},
 	},
 	completion = {
 		documentation = {

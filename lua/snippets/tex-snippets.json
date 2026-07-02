@@ -1,200 +1,175 @@
 {
   "texttt": {
     "prefix": "tt",
-    "body": ["\\texttt{${1}}", "${0}"]
+    "body": "\\texttt{${1}}$0"
   },
   "textbf": {
     "prefix": "bf",
-    "body": ["\\textbf{${1}}", "${0}"]
+    "body": "\\textbf{${1}}$0"
   },
   "textit": {
     "prefix": "it",
-    "body": ["\\textit{${1}}", "${0}"]
+    "body": "\\textit{${1}}$0"
   },
   "emph": {
     "prefix": "em",
-    "body": ["\\emph{${1}}", "${0}"]
+    "body": "\\emph{${1}}$0"
   },
   "underline": {
     "prefix": "ul",
-    "body": ["\\underline{${1}}", "${0}"]
+    "body": "\\underline{${1}}$0"
   },
   "textsc": {
     "prefix": "sc",
-    "body": ["\\textsc{${1}}", "${0}"]
+    "body": "\\textsc{${1}}$0"
   },
   "textsf": {
     "prefix": "sf",
-    "body": ["\\textsf{${1}}", "${0}"]
+    "body": "\\textsf{${1}}$0"
   },
   "textrm": {
     "prefix": "rm",
-    "body": ["\\textrm{${1}}", "${0}"]
+    "body": "\\textrm{${1}}$0"
+  },
+  "section": {
+    "prefix": "sec",
+    "body": "\\section{${1}}$0"
+  },
+  "subsection": {
+    "prefix": "ssec",
+    "body": "\\subsection{${1}}$0"
+  },
+  "subsubsection": {
+    "prefix": "sssec",
+    "body": "\\subsubsection{${1}}$0"
+  },
+  "frac": {
+    "prefix": "frac",
+    "body": "\\frac{${1}}{${2}}$0"
+  },
+  "frac_display": {
+    "prefix": "drac",
+    "body": "\\dfrac{${1}}{${2}}$0"
+  },
+  "sqrt": {
+    "prefix": "sqrt",
+    "body": "\\sqrt{${1}}$0"
+  },
+  "sum": {
+    "prefix": "sum",
+    "body": "\\sum_{${1}}^{${2}}$0"
+  },
+  "integral": {
+    "prefix": "int",
+    "body": "\\int_{${1}}^{${2}}$0"
+  },
+  "prod": {
+    "prefix": "prod",
+    "body": "\\prod_{${1}}^{${2}}$0"
+  },
+  "limit": {
+    "prefix": "lim",
+    "body": "\\lim_{${1:\\to}}$0"
+  },
+  "cite": {
+    "prefix": "cite",
+    "body": "\\cite{${1}}$0"
+  },
+  "label": {
+    "prefix": "lab",
+    "body": "\\label{${1}}$0"
+  },
+  "ref": {
+    "prefix": "ref",
+    "body": "\\ref{${1}}$0"
+  },
+  "usepackage": {
+    "prefix": "usp",
+    "body": "\\usepackage{${1}}$0"
+  },
+  "includegraphics": {
+    "prefix": "inc",
+    "body": "\\includegraphics[width=0.7\\textwidth]{${1}}$0"
+  },
+  "newcommand": {
+    "prefix": "nc",
+    "body": "\\newcommand{\\${1}}{${2}}$0"
+  },
+  "item": {
+    "prefix": "item",
+    "body": "\\item $0"
   },
   "begin_end": {
     "prefix": "bgn",
-    "body": ["\\begin{${1:env}}", "\t${2}", "\\end{${1:env}}", "${0}"]
+    "body": ["\\begin{${1:env}}", "\t$0", "\\end{${1:env}}"]
   },
   "frame": {
     "prefix": "frame",
-    "body": ["\\begin{frame}", "\t${1}", "\\end{frame}", "${0}"]
+    "body": ["\\begin{frame}", "\t$0", "\\end{frame}"]
+  },
+  "frame_with_title": {
+    "prefix": "framet",
+    "body": ["\\begin{frame}{${1:Title}}", "\t$0", "\\end{frame}"]
   },
   "itemize": {
     "prefix": "itm",
-    "body": ["\\begin{itemize}", "\t\\item ${1}", "\\end{itemize}", "${0}"]
+    "body": ["\\begin{itemize}", "\t\\item $0", "\\end{itemize}"]
   },
   "enumerate": {
     "prefix": "enm",
-    "body": ["\\begin{enumerate}", "\t\\item ${1}", "\\end{enumerate}", "${0}"]
+    "body": ["\\begin{enumerate}", "\t\\item $0", "\\end{enumerate}"]
   },
   "description": {
     "prefix": "desc",
     "body": [
       "\\begin{description}",
-      "\t\\item[${1:label}] ${2}",
-      "\\end{description}",
-      "${0}"
+      "\t\\item[${1:label}] $0",
+      "\\end{description}"
     ]
   },
   "equation": {
     "prefix": "eq",
-    "body": ["\\begin{equation}", "\t${1}", "\\end{equation}", "${0}"]
+    "body": ["\\begin{equation}", "\t$0", "\\end{equation}"]
   },
   "equation_star": {
     "prefix": "eqs",
-    "body": ["\\begin{equation*}", "\t${1}", "\\end{equation*}", "${0}"]
+    "body": ["\\begin{equation*}", "\t$0", "\\end{equation*}"]
   },
   "align": {
     "prefix": "alg",
-    "body": ["\\begin{align}", "\t${1}", "\\end{align}", "${0}"]
+    "body": ["\\begin{align}", "\t$0", "\\end{align}"]
   },
   "align_star": {
     "prefix": "algs",
-    "body": ["\\begin{align*}", "\t${1}", "\\end{align*}", "${0}"]
-  },
-  "figure": {
-    "prefix": "fig",
-    "body": [
-      "\\begin{figure}",
-      "\t\\centering",
-      "\t\\includegraphics[width=\\textwidth]{${1}}",
-      "\t\\caption{${2}}",
-      "\t\\label{fig:${3}}",
-      "\\end{figure}",
-      "${0}"
-    ]
-  },
-  "table": {
-    "prefix": "tab",
-    "body": [
-      "\\begin{table}",
-      "\t\\centering",
-      "\t\\begin{tabular}{${1:c c c}}",
-      "\t\t${2}",
-      "\t\\end{tabular}",
-      "\t\\caption{${3}}",
-      "\t\\label{tab:${4}}",
-      "\\end{table}",
-      "${0}"
-    ]
+    "body": ["\\begin{align*}", "\t$0", "\\end{align*}"]
   },
   "center": {
     "prefix": "cen",
-    "body": ["\\begin{center}", "\t${1}", "\\end{center}", "${0}"]
+    "body": ["\\begin{center}", "\t$0", "\\end{center}"]
   },
   "columns": {
     "prefix": "cols",
     "body": [
       "\\begin{columns}",
-      "\t\\begin{column}{${1:0.5\\textwidth}}",
-      "\t\t${2}",
+      "\t\\begin{column}{0.5\\textwidth}",
+      "\t\t${1}",
       "\t\\end{column}",
-      "\t\\begin{column}{${1:0.5\\textwidth}}",
-      "\t\t${3}",
+      "\t\\begin{column}{0.5\\textwidth}",
+      "\t\t$0",
       "\t\\end{column}",
-      "\\end{columns}",
-      "${0}"
+      "\\end{columns}"
     ]
-  },
-  "section": {
-    "prefix": "sec",
-    "body": ["\\section{${1}}", "${0}"]
-  },
-  "subsection": {
-    "prefix": "ssec",
-    "body": ["\\subsection{${1}}", "${0}"]
-  },
-  "subsubsection": {
-    "prefix": "sssec",
-    "body": ["\\subsubsection{${1}}", "${0}"]
-  },
-  "frac": {
-    "prefix": "frac",
-    "body": ["\\frac{${1}}{${2}}", "${0}"]
-  },
-  "frac_display": {
-    "prefix": "drac",
-    "body": ["\\dfrac{${1}}{${2}}", "${0}"]
-  },
-  "sqrt": {
-    "prefix": "sqrt",
-    "body": ["\\sqrt{${1}}", "${0}"]
-  },
-  "sum": {
-    "prefix": "sum",
-    "body": ["\\sum_{${1}}^{${2}}", "${0}"]
-  },
-  "integral": {
-    "prefix": "int",
-    "body": ["\\int_{${1}}^{${2}}", "${0}"]
-  },
-  "prod": {
-    "prefix": "prod",
-    "body": ["\\prod_{${1}}^{${2}}", "${0}"]
-  },
-  "limit": {
-    "prefix": "lim",
-    "body": ["\\lim_{${1:\\to}}", "${0}"]
-  },
-  "cite": {
-    "prefix": "cite",
-    "body": ["\\cite{${1}}", "${0}"]
-  },
-  "label": {
-    "prefix": "lab",
-    "body": ["\\label{${1}}", "${0}"]
-  },
-  "ref": {
-    "prefix": "ref",
-    "body": ["\\ref{${1}}", "${0}"]
-  },
-  "usepackage": {
-    "prefix": "usp",
-    "body": ["\\usepackage{${1}}", "${0}"]
-  },
-  "includegraphics": {
-    "prefix": "inc",
-    "body": ["\\includegraphics[width=\\textwidth]{${1}}", "${0}"]
-  },
-  "newcommand": {
-    "prefix": "nc",
-    "body": ["\\newcommand{\\${1}}{${2}}", "${0}"]
-  },
-  "item": {
-    "prefix": "item",
-    "body": ["\\item ${1}", "${0}"]
   },
   "block": {
     "prefix": "blk",
-    "body": ["\\begin{block}{${1:title}}", "\t${2}", "\\end{block}", "${0}"]
+    "body": ["\\begin{block}{${1:title}}", "\t$0", "\\end{block}"]
   },
   "alertblock": {
     "prefix": "ablk",
     "body": [
       "\\begin{alertblock}{${1:title}}",
-      "\t${2}",
-      "\\end{alertblock}",
-      "${0}"
+      "\t$0",
+      "\\end{alertblock}"
     ]
   },
   "beamertitle": {
@@ -204,35 +179,31 @@
       "\\author{${2}}",
       "\\date{${3:\\today}}",
       "\\maketitle",
-      "${0}"
+      "$0"
     ]
-  },
-  "frame_with_title": {
-    "prefix": "framet",
-    "body": ["\\begin{frame}{${1:Title}}", "\t${2}", "\\end{frame}", "${0}"]
   },
   "document": {
     "prefix": "doc",
-    "body": ["\\begin{document}", "\t${1}", "\\end{document}", "${0}"]
+    "body": ["\\begin{document}", "\t$0", "\\end{document}"]
   },
   "proof": {
     "prefix": "pf",
-    "body": ["\\begin{proof}", "\t${1}", "\\end{proof}", "${0}"]
+    "body": ["\\begin{proof}", "\t$0", "\\end{proof}"]
   },
   "theorem": {
     "prefix": "thm",
-    "body": ["\\begin{theorem}", "\t${1}", "\\end{theorem}", "${0}"]
+    "body": ["\\begin{theorem}", "\t$0", "\\end{theorem}"]
   },
   "lemma": {
     "prefix": "lem",
-    "body": ["\\begin{lemma}", "\t${1}", "\\end{lemma}", "${0}"]
+    "body": ["\\begin{lemma}", "\t$0", "\\end{lemma}"]
   },
   "definition": {
     "prefix": "def",
-    "body": ["\\begin{definition}", "\t${1}", "\\end{definition}", "${0}"]
+    "body": ["\\begin{definition}", "\t$0", "\\end{definition}"]
   },
   "example": {
     "prefix": "ex",
-    "body": ["\\begin{example}", "\t${1}", "\\end{example}", "${0}"]
+    "body": ["\\begin{example}", "\t$0", "\\end{example}"]
   }
 }
