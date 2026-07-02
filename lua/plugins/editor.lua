@@ -107,20 +107,21 @@ vim.pack.add({
 
 require("conform").setup({
 	notify_on_error = true,
-	format_on_save = function(bufnr)
-		-- Disable "format_on_save lsp_fallback" for languages that don't
-		-- have a well standardized coding style. You can add additional
-		-- languages here or re-enable it for the disabled ones.
-		local disable_filetypes = { c = true, cpp = true, tex = true }
-		if disable_filetypes[vim.bo[bufnr].filetype] then
-			return nil
-		else
-			return {
-				timeout_ms = 500,
-				lsp_format = "fallback",
-			}
-		end
-	end,
+	format_on_save = false,
+	--    function(bufnr)
+	-- 	-- Disable "format_on_save lsp_fallback" for languages that don't
+	-- 	-- have a well standardized coding style. You can add additional
+	-- 	-- languages here or re-enable it for the disabled ones.
+	-- 	local disable_filetypes = { c = true, cpp = true, tex = true }
+	-- 	if disable_filetypes[vim.bo[bufnr].filetype] then
+	-- 		return nil
+	-- 	else
+	-- 		return {
+	-- 			timeout_ms = 500,
+	-- 			lsp_format = "fallback",
+	-- 		}
+	-- 	end
+	-- end,
 	formatters = {
 		-- 配置 shfmt 的参数 (默认是 -w)
 		shfmt = {
@@ -162,6 +163,8 @@ require("conform").setup({
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		cs = { "clang-format" },
+		fortran = { "fprettify" },
+		matlab = { "mh_style" }, -- miss_hit
 
 		-- Go -> 先整理 import，再进行严格格式化
 		go = { "goimports", "gofumpt" },
@@ -419,12 +422,6 @@ require("snacks").setup({
 		sections = {
 			{
 				pane = 1,
-				{
-					section = "header",
-				},
-			},
-			{
-				pane = 2,
 				-- { section = "keys", gap = 1, padding = 1 },
 				-- { icon = " ", title = "NEOVIM", padding = 1 },
 				{
@@ -443,6 +440,12 @@ require("snacks").setup({
 				-- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
 				-- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 				{ section = "keys", gap = 1, padding = 1 },
+			},
+			{
+				pane = 2,
+				{
+					section = "header",
+				},
 			},
 			-- { section = "keys", gap = 1, padding = 1 },
 			-- start up only works for lazy.nvim
