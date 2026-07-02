@@ -118,6 +118,21 @@ local ft_cmds = {
 	zig = "zig run $fullFileName",
 }
 
+-- 替代运行表：按下 <leader>R 时，若当前 filetype 在此表中则触发这里定义的命令，
+-- 否则回退到 RunCurrentFileWithArg（带参运行）。
+-- 每项包含：
+--   desc(string): which-key 中显示的描述
+--   cmd(string|function): 要执行的命令
+local ft_alt_cmds = {
+	tex = {
+		desc = "Compile current .tex (xelatex)",
+		cmd = function()
+			TryBibTeX()
+			RunCommand('cd "$dir" && xelatex -synctex=1 --shell-escape -interaction=nonstopmode "$fileName" && exit')
+		end,
+	},
+}
+
 -- @param marker: 标志文件 (如 "Cargo.toml") 或通配符 (如 "*.cabal")
 -- @param cmd_project: 找到 marker 时执行的命令字符串
 -- @param cmd_fallback: 没找到时执行的命令字符串或函数
@@ -324,6 +339,33 @@ function RunCurrentFileWithArg()
 	vim.cmd("w") -- 先保存文件
 	local arg = vim.fn.input("Input arguments: ")
 	RunCurrentFile(arg)
+end
+
+-- <leader>R 的分发函数：当前 filetype 有替代运行项则执行它，否则回退到带参运行
+function RunCurrentFileAlt()
+	local alt = ft_alt_cmds[vim.bo.filetype]
+	if not alt then
+		RunCurrentFileWithArg()
+		return
+	end
+
+	if vim.bo.readonly then
+		vim.notify("Read only file. Skip write.", vim.log.levels.WARN)
+	else
+		vim.cmd("silent w")
+	end
+
+	if type(alt.cmd) == "function" then
+		alt.cmd()
+	else
+		RunCommand(alt.cmd)
+	end
+end
+
+-- 供 which-key 动态显示当前 filetype 下 <leader>R 的行为
+function RunAltDesc()
+	local alt = ft_alt_cmds[vim.bo.filetype]
+	return (alt and alt.desc) or "[R]un file with args"
 end
 
 -- 编译tex文件时，检查是否需要运行 BibTeX并执行

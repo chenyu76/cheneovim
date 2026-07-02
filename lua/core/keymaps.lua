@@ -54,8 +54,8 @@ wk.setup({
 		{ "<leader>r", "<cmd>lua RunCurrentFile()<CR>", desc = "[R]un file", mode = "n", icon = "" },
 		{
 			"<leader>R",
-			"<cmd>lua RunCurrentFileWithArg()<CR>",
-			desc = "[R]un file with args",
+			"<cmd>lua RunCurrentFileAlt()<CR>",
+			desc = RunAltDesc, -- defined in quick_run.lua
 			mode = "n",
 			icon = "",
 		},
