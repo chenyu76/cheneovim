@@ -66,7 +66,43 @@ local ft_cmds = {
 	ruby = "ruby $fullFileName",
 	php = "php $fullFileName",
 	swift = "swift $fullFileName",
-	lua = "lua $fullFileName",
+	lua = function()
+		local current_file = vim.fn.expand("%:p")
+		local dir = vim.fn.fnamemodify(current_file, ":h")
+		local home = vim.fn.expand("$HOME")
+		local search_dir = dir
+
+		while true do
+			local luarc = search_dir .. "/.luarc.json"
+			if vim.fn.filereadable(luarc) == 1 then
+				local f = io.open(luarc, "r")
+				if f then
+					local content = f:read("*all")
+					f:close()
+					if content:find("love2d") then
+						vim.notify("Starting love2d project...", vim.log.levels.INFO)
+						vim.fn.jobstart({ "love", "." }, { cwd = search_dir })
+						return
+					end
+					break
+				end
+			end
+			local parent = vim.fn.fnamemodify(search_dir, ":h")
+			if parent == search_dir or parent == home then
+				break
+			end
+			search_dir = parent
+		end
+
+		local nvim_config_dir = home .. "/.config/nvim"
+		if current_file:sub(1, #nvim_config_dir) == nvim_config_dir then
+			vim.cmd("source " .. vim.fn.expand("$MYVIMRC"))
+			vim.notify("Neovim config reloaded", vim.log.levels.INFO)
+			return
+		end
+
+		RunCommand("lua $fullFileName")
+	end,
 	perl = "perl $fullFileName",
 	r = "Rscript $fullFileName",
 	groovy = "groovy $fullFileName",
