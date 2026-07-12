@@ -25,13 +25,22 @@ require("tree-sitter-manager").setup({
 	-- auto_install = true, -- if enabled, install missing parsers when editing a new file
 	-- highlight = true, -- treesitter highlighting is enabled by default
 	-- https://github.com/tree-sitter/tree-sitter-haskell/issues/158
+	--
+	-- fix:
+	-- https://github.com/tree-sitter/tree-sitter-haskell/issues/158#issuecomment-4467749870
+	-- lyokha on May 17
+	-- @zcacmjw I cloned https://github.com/tree-sitter-grammars/tree-sitter-haskell,
+	-- installed tree-sitter-cli with cargo install tree-sitter-cli (version 0.26.8),
+	-- cd into cloned tree-sitter-haskell and did tree-sitter build,
+	-- then copied compiled haskell.so into .local/share/nvim/site/parser.
+	-- In my case, nvim started without crash.
 	languages = {
-		-- haskell = {
-		-- 	install_info = {
-		-- 		url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
-		-- 		use_repo_queries = true,
-		-- 	},
-		-- },
+		haskell = {
+			install_info = {
+				url = "https://github.com/tree-sitter-grammars/tree-sitter-haskell",
+				use_repo_queries = true,
+			},
+		},
 	},
 })
 
