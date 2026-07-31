@@ -48,6 +48,14 @@ require("window-picker").setup({
 	hint = "floating-big-letter",
 })
 require("neo-tree").setup({
+	sort_function = function(a, b)
+		local a_path = a.path:lower()
+		local b_path = b.path:lower()
+		if a_path == b_path then
+			return a.path < b.path
+		end
+		return a_path < b_path
+	end,
 	filesystem = {
 		filtered_items = {
 			hide_by_pattern = {
@@ -141,6 +149,9 @@ require("conform").setup({
 		["black"] = {
 			prepend_args = { "--config", vim.fn.stdpath("config") .. "/tool-configs/black.toml" },
 		},
+		["fourmolu"] = {
+			prepend_args = { "--column-limit", "100" },
+		},
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -170,7 +181,7 @@ require("conform").setup({
 		go = { "goimports", "gofumpt" },
 
 		-- Haskell
-		haskell = { "ormolu" },
+		haskell = { "fourmolu" },
 
 		-- Shell / Bash
 		sh = { "shfmt" },
