@@ -23,6 +23,7 @@ require("modules.deepseek")
 require("plugins.completion")
 require("plugins.debug")
 require("plugins.editor")
+require("plugins.format")
 require("plugins.langspec")
 
 -- keymaps depends on some plugins, thus it need to be loaded at the end.
