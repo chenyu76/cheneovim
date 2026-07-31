@@ -1,28 +1,3 @@
--- State management for theme rotation
-local state_path = vim.fn.stdpath("data") .. "/theme_state.json"
-
-local function load_state()
-	local f = io.open(state_path, "r")
-	if not f then
-		return { family_idx = 1, variant_indices = {} }
-	end
-	local content = f:read("*a")
-	f:close()
-	local ok, state = pcall(vim.fn.json_decode, content)
-	if not ok or type(state) ~= "table" then
-		return { family_idx = 1, variant_indices = {} }
-	end
-	return state
-end
-
-local function save_state(state)
-	local f = io.open(state_path, "w")
-	if f then
-		f:write(vim.fn.json_encode(state))
-		f:close()
-	end
-end
-
 -- Theme configuration: Add more families or variants here for extensibility
 local theme_groups = {
 	{
@@ -53,33 +28,24 @@ local theme_groups = {
 	-- },
 }
 
--- Selection logic to alternate families and rotate variants
-local function get_next_theme()
-	local state = load_state()
-	local family_idx = state.family_idx or 1
-	if family_idx > #theme_groups then
-		family_idx = 1
+local function get_theme()
+	local themes = {}
+	for _, group in ipairs(theme_groups) do
+		for _, variant in ipairs(group.variants) do
+			table.insert(themes, { group = group, variant = variant })
+		end
 	end
 
-	local variant_indices = state.variant_indices or {}
-	local group = theme_groups[family_idx]
-
-	local family_key = tostring(family_idx)
-	local variant_idx = variant_indices[family_key] or 1
-	if variant_idx > #group.variants then
-		variant_idx = 1
+	local first_arg = vim.fn.argv(0)
+	local selection_key
+	if first_arg ~= "" then
+		selection_key = vim.fn.fnamemodify(first_arg, ":t")
+	else
+		selection_key = vim.fn.getcwd()
 	end
 
-	local selected_theme = group.variants[variant_idx]
-
-	-- Update state for next startup
-	state.family_idx = (family_idx % #theme_groups) + 1
-	variant_indices[family_key] = (variant_idx % #group.variants) + 1
-	state.state_version = (state.state_version or 0) + 1
-	state.variant_indices = variant_indices
-	save_state(state)
-
-	return group, selected_theme
+	local theme_idx = (vim.fn.strchars(selection_key) % #themes) + 1
+	return themes[theme_idx].group, themes[theme_idx].variant
 end
 
 -- Build the list of plugin specifications for lazy.nvim
@@ -89,8 +55,9 @@ for _, group in ipairs(theme_groups) do
 end
 vim.pack.add(links)
 
--- Identify the theme for the current session
-local group, current_variant = get_next_theme()
+-- Select a stable theme from the first file name, or the current directory
+-- when Neovim starts without a file.
+local group, current_variant = get_theme()
 group.setup()
 vim.cmd.colorscheme(current_variant)
 -- pcall(vim.cmd.colorscheme, current_variant)
