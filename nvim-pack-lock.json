@@ -100,6 +100,10 @@
       "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
+    "minuet-ai.nvim": {
+      "rev": "14c7fdae6421d32b4ae5cb681bd87bb8c148d40b",
+      "src": "https://github.com/milanglacier/minuet-ai.nvim"
+    },
     "neo-tree.nvim": {
       "rev": "4d748ef6953ba0c3a6623dc0a775a5f5989aba70",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"

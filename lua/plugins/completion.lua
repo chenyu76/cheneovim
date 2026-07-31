@@ -96,14 +96,70 @@ vim.pack.add({
 	"https://github.com/saghen/blink.cmp",
 }, { confirm = false })
 
+-- ai
+-- vim.pack.add({ "https://github.com/milanglacier/minuet-ai.nvim" }, { confirm = false })
+-- require("minuet").setup({
+-- 	provider = "openai_fim_compatible",
+-- 	n_completions = 1, -- recommend for local model for resource saving
+-- 	-- I recommend beginning with a small context window size and incrementally
+-- 	-- expanding it, depending on your local computing power. A context window
+-- 	-- of 512, serves as an good starting point to estimate your computing
+-- 	-- power. Once you have a reliable estimate of your local computing power,
+-- 	-- you should adjust the context window to a larger value.
+-- 	context_window = 512,
+-- 	provider_options = {
+-- 		openai_fim_compatible = {
+-- 			-- For Windows users, TERM may not be present in environment variables.
+-- 			-- Consider using APPDATA instead.
+-- 			api_key = "TERM",
+-- 			name = "Ollama",
+-- 			end_point = "http://localhost:11434/v1/completions",
+-- 			model = "qwen2.5-coder:7b",
+-- 			optional = {
+-- 				max_tokens = 56,
+-- 				top_p = 0.9,
+-- 			},
+-- 		},
+-- 	},
+-- })
+
+-- use deepseek for autocomplete
+-- require("minuet").setup({
+-- 	provider = "openai_fim_compatible",
+-- 	provider_options = {
+-- 		openai_fim_compatible = {
+-- 			api_key = function()
+-- 				return vim.g.deepseek_api_key
+-- 			end,
+-- 			name = "deepseek",
+-- 			optional = {
+-- 				max_tokens = 256,
+-- 				top_p = 0.9,
+-- 			},
+-- 		},
+-- 	},
+-- })
+
 require("blink.cmp").setup({
 	snippets = {
 		preset = "luasnip",
 	},
 	sources = {
+		-- Enable minuet for autocomplete
+		-- default = { "lsp", "path", "buffer", "snippets", "minuet" },
+		-- For manual completion only, remove 'minuet' from default
 		providers = {
 			snippets = { score_offset = 4 },
 			buffer = { score_offset = -3 },
+			-- minuet = {
+			-- 	name = "minuet",
+			-- 	module = "minuet.blink",
+			-- 	async = true,
+			-- 	-- Should match minuet.config.request_timeout * 1000,
+			-- 	-- since minuet.config.request_timeout is in seconds
+			-- 	timeout_ms = 3000,
+			-- 	score_offset = 50, -- Gives minuet higher priority among suggestions
+			-- },
 		},
 	},
 	completion = {
