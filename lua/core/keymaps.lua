@@ -10,6 +10,7 @@ wk.setup({
 	spec = {
 		{ "<leader>s", group = "[S]earch", icon = { icon = "", color = "green" } },
 		{ "<leader>t", group = "[T]oggle", icon = { icon = "󰦭", color = "orange" } },
+		{ "<leader>td", "<cmd>Dooing<CR>", desc = "Open Dooing", mode = "n", icon = "" },
 		{ "<leader>g", group = "[G]it", icon = { icon = "", color = "orange" } },
 		-- {
 		-- 	"<leader>tc",

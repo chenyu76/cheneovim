@@ -273,6 +273,7 @@ require("snacks").setup({
 				{ icon = "󰋚 ", key = ".", desc = "Recent files", action = ":Telescope oldfiles" },
 				{ icon = " ", key = "c", desc = "Create a new file", action = ":ene | startinsert" },
 				{ icon = "󱉟 ", key = "p", desc = "Projects", action = ":Telescope projects" },
+				{ icon = " ", key = "d", desc = "Dooing", action = ":Dooing" },
 				{ icon = "󰩍 ", key = "o", desc = "Open a file", action = ":Open" },
 				{ icon = " ", key = "t", desc = "Terminal", action = ":terminal" },
 				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -380,3 +381,9 @@ local notify = require("notify")
 -- 将 notify 函数覆盖全局的 vim.notify，
 -- 这样所有调用 vim.notify 的地方都会使用 nvim-notify 来显示通知
 vim.notify = notify
+
+vim.pack.add({ "https://github.com/atiladefreitas/dooing" })
+
+require("dooing").setup({
+    -- your custom config here (optional)
+})

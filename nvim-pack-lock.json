@@ -36,6 +36,10 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "dooing": {
+      "rev": "4c4ac78088cf462398a0206e79669936a184175f",
+      "src": "https://github.com/atiladefreitas/dooing"
+    },
     "draftsman.nvim": {
       "rev": "37a3afff90fd503164171feb0d36be99e1109be5",
       "src": "https://github.com/chenyu76/draftsman.nvim"
