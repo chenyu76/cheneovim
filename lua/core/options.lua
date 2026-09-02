@@ -76,7 +76,8 @@ vim.opt.wrap = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-vim.opt.textwidth = 80
+-- Don't insert line breaks automatically while typing.
+vim.opt.textwidth = 0
 
 vim.diagnostic.config({
 	signs = {

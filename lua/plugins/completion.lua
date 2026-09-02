@@ -363,6 +363,17 @@ local lsp_servers = {
 			},
 		},
 	},
+	pylsp = {
+		settings = {
+			pylsp = {
+				plugins = {
+					-- Black handles formatting; do not report line-length diagnostics.
+					pycodestyle = { ignore = { "E501" } },
+					flake8 = { extendIgnore = { "E501" } },
+				},
+			},
+		},
+	},
 	texlab = {
 		settings = {
 			texlab = {
