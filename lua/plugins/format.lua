@@ -71,6 +71,9 @@ require("conform").setup({
 		-- Go -> 先整理 import，再进行严格格式化
 		go = { "goimports", "gofumpt" },
 
+		-- Rust
+		rust = { "rustfmt" },
+
 		-- Haskell
 		haskell = { "fourmolu" },
 

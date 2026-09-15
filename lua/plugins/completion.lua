@@ -367,8 +367,9 @@ local lsp_servers = {
 		settings = {
 			pylsp = {
 				plugins = {
-					-- Black handles formatting; do not report line-length diagnostics.
-					pycodestyle = { ignore = { "E501" } },
+					-- Match Black's style: it may exceed the line limit when a line cannot
+					-- be split, and follows modern PEP 8 by breaking before operators.
+					pycodestyle = { ignore = { "E501", "W503" } },
 					flake8 = { extendIgnore = { "E501" } },
 				},
 			},
