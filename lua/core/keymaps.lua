@@ -340,3 +340,12 @@ vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find exis
 
 -- Use jj to exit insert mode
 vim.keymap.set("i", "jj", "<ESC>", { silent = true })
+
+-- INFO: system clipboard shortcuts
+-- 通过 "+ 寄存器读写系统剪贴板 (Wayland: wl-clipboard / X11: xclip)
+-- copy to system clipboard
+vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Copy line to system clipboard" })
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy selection to system clipboard" })
+-- paste from system clipboard
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste over selection from system clipboard" })
