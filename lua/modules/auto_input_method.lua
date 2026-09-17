@@ -1,6 +1,6 @@
 -- 三个函数，不同设备使用了不同的输入法方案
 local get_im_status -- 获取当前输入法状态 (返回 1 为中文, 0 为英文)
-local recover_im_status -- 根据状态恢复输入法
+local recover_im_status -- 根据状态恢复输入法 有一个参数 status 状态
 local close_im_status -- 强制关闭输入法 (切回英文)
 
 if vim.g.current_device == 2 then
@@ -15,8 +15,8 @@ if vim.g.current_device == 2 then
 		end
 	end
 
-	recover_im_status = function()
-		if vim.g.my_im_status == 1 then
+	recover_im_status = function(status)
+		if status == 1 then
 			vim.fn.system("ibus engine rime")
 		end
 	end
@@ -26,10 +26,13 @@ if vim.g.current_device == 2 then
 		vim.fn.system("ibus engine xkb:us::eng")
 	end
 elseif vim.g.current_device == 1 then
-	-- 使用大写锁定控制中英文，但是大写锁定打开后会影响关闭输入法的大小写。
-    -- 需要下面函数来保存大写锁定配置并恢复
-    -- 需要安装ydotool
-	local function capslock_is_on()
+	-- 使用大写锁定控制中英文，因此大写锁定的状态就是输入法状态
+	-- 大写锁定关闭即为输入中文。
+	-- 需要下面函数来保存大写锁定配置并恢复
+	-- 需要安装ydotool
+	--
+	-- 是否打开大写锁定，返回 1 打开 或 0 关闭
+	local function get_capslock_status()
 		local files = vim.fn.glob("/sys/class/leds/*capslock/brightness", false, true)
 
 		for _, file in ipairs(files) do
@@ -39,61 +42,36 @@ elseif vim.g.current_device == 1 then
 				handle:close()
 
 				if value == "1" then
-					return true
+					return 1
 				end
 			end
 		end
 
-		return false
+		return 0
 	end
 
-	local function turn_capslock_off()
-		if capslock_is_on() then
-			vim.fn.system({ "ydotool", "key", "58:1", "58:0" })
+	-- 输入1打开大写锁定，0关闭
+	local function toggle_capslock()
+		vim.fn.system({ "ydotool", "key", "58:1", "58:0" })
+	end
+	local function turn_capslock(state)
+		if get_capslock_status() ~= state then
+			toggle_capslock()
 		end
 	end
 
-	local function restore_capslock()
-		if vim.g.my_capslock_status and not capslock_is_on() then
-			vim.fn.system({ "ydotool", "key", "58:1", "58:0" })
+	-- 输入中文时大写锁定是关闭的
+	get_im_status = function ()
+      return 1 - get_capslock_status()
+    end
+    -- 这个status是输入法状态而不是大写锁定状态
+	recover_im_status = function(status)
+		if status == get_capslock_status() then
+			toggle_capslock()
 		end
 	end
-
-	-- 需要安装
-	-- https://extensions.gnome.org/extension/6547/input-source-d-bus-interface/
-	-- 见
-	-- https://github.com/herrscher-of-sleeping/gnome-input-source-dbus-interface
-
-	get_im_status = function()
-		-- system 返回的结果通常带换行符，需要 trim
-		local engine = vim.trim(
-			vim.fn.system(
-				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Get"
-			)
-		)
-		if engine == "('rime',)" then
-			return 1
-		else
-			return 0
-		end
-	end
-
-	recover_im_status = function()
-		if vim.g.my_im_status == 1 then
-			vim.fn.system(
-				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
-			)
-		end
-		restore_capslock()
-	end
-
 	close_im_status = function()
-		-- print(vim.fn.system("ibus engine rime"))
-		vim.g.my_capslock_status = capslock_is_on()
-		vim.fn.system(
-			"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set us"
-		)
-		turn_capslock_off()
+		turn_capslock(1)
 	end
 else
 	-- fcitx5输入法: pinyin (通过 fcitx5-remote 控制)
@@ -106,8 +84,8 @@ else
 		end
 	end
 
-	recover_im_status = function()
-		if vim.g.my_im_status == 1 then
+	recover_im_status = function(status)
+		if status == 1 then
 			vim.fn.system("/usr/bin/fcitx5-remote -o")
 		end
 	end
@@ -132,7 +110,9 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 -- 进入插入模式：如果之前是中文，则恢复中文
 vim.api.nvim_create_autocmd("InsertEnter", {
 	pattern = "*",
-	callback = recover_im_status,
+	callback = function()
+		recover_im_status(vim.g.my_im_status)
+	end,
 })
 
 -- 切换 Buffer 或新建文件时：强制切回英文，避免干扰
