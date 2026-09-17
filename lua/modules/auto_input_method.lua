@@ -26,6 +26,39 @@ if vim.g.current_device == 2 then
 		vim.fn.system("ibus engine xkb:us::eng")
 	end
 elseif vim.g.current_device == 1 then
+	-- 使用大写锁定控制中英文，但是大写锁定打开后会影响关闭输入法的大小写。
+    -- 需要下面函数来保存大写锁定配置并恢复
+    -- 需要安装ydotool
+	local function capslock_is_on()
+		local files = vim.fn.glob("/sys/class/leds/*capslock/brightness", false, true)
+
+		for _, file in ipairs(files) do
+			local handle = io.open(file, "r")
+			if handle then
+				local value = handle:read("*l")
+				handle:close()
+
+				if value == "1" then
+					return true
+				end
+			end
+		end
+
+		return false
+	end
+
+	local function turn_capslock_off()
+		if capslock_is_on() then
+			vim.fn.system({ "ydotool", "key", "58:1", "58:0" })
+		end
+	end
+
+	local function restore_capslock()
+		if vim.g.my_capslock_status and not capslock_is_on() then
+			vim.fn.system({ "ydotool", "key", "58:1", "58:0" })
+		end
+	end
+
 	-- 需要安装
 	-- https://extensions.gnome.org/extension/6547/input-source-d-bus-interface/
 	-- 见
@@ -51,13 +84,16 @@ elseif vim.g.current_device == 1 then
 				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
 			)
 		end
+		restore_capslock()
 	end
 
 	close_im_status = function()
 		-- print(vim.fn.system("ibus engine rime"))
+		vim.g.my_capslock_status = capslock_is_on()
 		vim.fn.system(
 			"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set us"
 		)
+		turn_capslock_off()
 	end
 else
 	-- fcitx5输入法: pinyin (通过 fcitx5-remote 控制)
