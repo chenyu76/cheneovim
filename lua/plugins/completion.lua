@@ -356,6 +356,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- see `:h lspconfig-all` for available servers and their settings
 local lsp_servers = {
 	julials = {
+		settings = {
+			julia = {
+				inlayHints = {
+					static = {
+						parameterNames = { enabled = "none" },
+					},
+				},
+			},
+		},
 		cmd_env = {
 			JULIA_LSP_JULIA_BIN = vim.fn.stdpath("config") .. "/bundle/julia-1.12.7/bin/julia",
 			-- Use Julia's bundled C++ library; probing the host library hangs here.
