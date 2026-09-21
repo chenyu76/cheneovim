@@ -1,3 +1,13 @@
+-- INFO: sticky scroll (show enclosing definitions at the top of the window)
+vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter-context" }, { confirm = false })
+
+require("treesitter-context").setup({
+	max_lines = 3, -- 顶部最多显示 3 行上下文
+	multiline_threshold = 1, -- 每个定义只显示首行
+	line_numbers = true,
+	mode = "topline", -- 根据窗口顶部的位置更新，接近 VS Code Sticky Scroll
+})
+
 -- INFO: fuzzy finder
 
 vim.pack.add({
