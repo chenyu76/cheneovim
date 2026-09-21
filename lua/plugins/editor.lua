@@ -58,6 +58,12 @@ require("window-picker").setup({
 	hint = "floating-big-letter",
 })
 require("neo-tree").setup({
+	event_handlers = {
+		{
+			event = "file_open_requested",
+			handler = require("modules.neo_tree_external_open"),
+		},
+	},
 	sort_function = function(a, b)
 		local a_path = a.path:lower()
 		local b_path = b.path:lower()
