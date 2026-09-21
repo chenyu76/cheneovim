@@ -355,6 +355,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- lsp servers we want to use and their configuration
 -- see `:h lspconfig-all` for available servers and their settings
 local lsp_servers = {
+	julials = {
+		cmd_env = {
+			JULIA_LSP_JULIA_BIN = vim.fn.stdpath("config") .. "/bundle/julia-1.12.7/bin/julia",
+			-- Use Julia's bundled C++ library; probing the host library hangs here.
+			JULIA_PROBE_LIBSTDCXX = "0",
+		},
+		cmd = function(dispatchers, config)
+			-- Resolve the environment before Mason starts the server; its default
+			-- fallback asks the system Julia, which may use a different version.
+			config.julia_env_path = config.julia_env_path
+				or vim.fs.root(config.root_dir or vim.fn.getcwd(), { "Project.toml", "JuliaProject.toml" })
+				or vim.fn.expand("~/.julia/environments/v1.12")
+			return require("mason-lspconfig.lsp.julials").cmd(dispatchers, config)
+		end,
+	},
 	lua_ls = {
 		settings = {
 			Lua = {
