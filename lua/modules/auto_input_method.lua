@@ -1,7 +1,7 @@
 -- 三个函数，不同设备使用了不同的输入法方案
 local get_im_status -- 获取当前输入法状态 (返回 1 为中文, 0 为英文)
-local recover_im_status -- 根据状态恢复输入法 有一个参数 status 状态
-local close_im_status -- 强制关闭输入法 (切回英文)
+local turn_im_on
+local turn_im_off -- 强制关闭输入法 (切回英文)
 
 if vim.g.current_device == 2 then
 	-- ibus输入法: rime 和 xkb:us::eng
@@ -15,13 +15,11 @@ if vim.g.current_device == 2 then
 		end
 	end
 
-	recover_im_status = function(status)
-		if status == 1 then
-			vim.fn.system("ibus engine rime")
-		end
+	turn_im_on = function()
+		vim.fn.system("ibus engine rime")
 	end
 
-	close_im_status = function()
+	turn_im_off = function()
 		-- print(vim.fn.system("ibus engine rime"))
 		vim.fn.system("ibus engine xkb:us::eng")
 	end
@@ -64,19 +62,15 @@ elseif vim.g.current_device == 1 then
 	get_im_status = function()
 		return 1 - get_capslock_status()
 	end
-	-- 这个status是输入法状态而不是大写锁定状态
-	recover_im_status = function(status)
-		if status == get_capslock_status() then
-			toggle_capslock()
-		end
-        -- 启动rime
-		if status == 1 then
-			vim.fn.system(
-				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
-			)
-		end
+	turn_im_on = function()
+		-- 这个status是大写锁定状态
+		turn_capslock(0)
+		-- 启动rime
+		vim.fn.system(
+			"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
+		)
 	end
-	close_im_status = function()
+	turn_im_off = function()
 		-- 需要安装
 		-- https://extensions.gnome.org/extension/6547/input-source-d-bus-interface/
 		-- 见
@@ -106,13 +100,11 @@ else
 		end
 	end
 
-	recover_im_status = function(status)
-		if status == 1 then
-			vim.fn.system("/usr/bin/fcitx5-remote -o")
-		end
+	turn_im_on = function()
+		vim.fn.system("/usr/bin/fcitx5-remote -o")
 	end
 
-	close_im_status = function()
+	turn_im_off = function()
 		vim.fn.system("/usr/bin/fcitx5-remote -c")
 	end
 end
@@ -120,27 +112,33 @@ end
 -- 初始化变量
 vim.g.my_im_status = get_im_status()
 
+local recover_im_status = function() -- 根据状态恢复输入法 有一个参数 status 状态
+	if vim.g.my_im_status == 1 then
+		turn_im_on()
+	else
+		turn_im_off()
+	end
+end
+
 -- 离开插入模式：保存当前状态，并强制切回英文
 vim.api.nvim_create_autocmd("InsertLeave", {
 	pattern = "*",
 	callback = function()
 		vim.g.my_im_status = get_im_status()
-		close_im_status()
+		turn_im_off()
 	end,
 })
 
 -- 进入插入模式：如果之前是中文，则恢复中文
 vim.api.nvim_create_autocmd("InsertEnter", {
 	pattern = "*",
-	callback = function()
-		recover_im_status(vim.g.my_im_status)
-	end,
+	callback = recover_im_status,
 })
 
 -- 切换 Buffer 或新建文件时：强制切回英文，避免干扰
 vim.api.nvim_create_autocmd({ "BufCreate", "BufEnter", "BufLeave" }, {
 	pattern = "*",
-	callback = close_im_status,
+	callback = turn_im_off,
 })
 
 -- 在插入模式下连续输入两个空格时，自动切换输入法
