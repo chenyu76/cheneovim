@@ -1,7 +1,9 @@
 -- different config for different device
 -- 1: x1
 -- 0: X13
-vim.g.current_device = vim.loop.os_gethostname() == "x1gen14" and 1 or 0
+-- -1: other
+local hostname = vim.loop.os_gethostname()
+vim.g.current_device = hostname == "x1gen14" and 1 or (hostname == "X13" and 0 or -1)
 
 -- Initialize core settings
 require("core.options")

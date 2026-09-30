@@ -61,17 +61,39 @@ elseif vim.g.current_device == 1 then
 	end
 
 	-- 输入中文时大写锁定是关闭的
-	get_im_status = function ()
-      return 1 - get_capslock_status()
-    end
-    -- 这个status是输入法状态而不是大写锁定状态
+	get_im_status = function()
+		return 1 - get_capslock_status()
+	end
+	-- 这个status是输入法状态而不是大写锁定状态
 	recover_im_status = function(status)
 		if status == get_capslock_status() then
 			toggle_capslock()
 		end
+        -- 启动rime
+		if status == 1 then
+			vim.fn.system(
+				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Set rime"
+			)
+		end
 	end
 	close_im_status = function()
-		turn_capslock(1)
+		-- 需要安装
+		-- https://extensions.gnome.org/extension/6547/input-source-d-bus-interface/
+		-- 见
+		-- https://github.com/herrscher-of-sleeping/gnome-input-source-dbus-interface
+		-- system 返回的结果通常带换行符，需要 trim
+		local engine = vim.trim(
+			vim.fn.system(
+				"gdbus call --session --dest org.gnome.Shell --object-path /raiden_fumo/InputSources --method raiden_fumo.InputSources.Get"
+			)
+		)
+		-- rime 下打开大写锁定是关闭输入法，
+		-- 不过在us键盘下应该关闭大写锁定
+		if engine == "('rime',)" then
+			turn_capslock(1)
+		else
+			turn_capslock(0)
+		end
 	end
 else
 	-- fcitx5输入法: pinyin (通过 fcitx5-remote 控制)
