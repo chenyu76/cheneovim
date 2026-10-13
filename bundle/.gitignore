@@ -1,0 +1,6 @@
+*
+!.gitignore
+!evince-synctex/
+evince-synctex/*
+!evince-synctex/evince_synctex.py
+!evince-synctex/LICENSE

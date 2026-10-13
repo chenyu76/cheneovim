@@ -403,8 +403,17 @@ local lsp_servers = {
 		settings = {
 			texlab = {
 				forwardSearch = {
-					executable = vim.fn.stdpath("config") .. "/bundle/evince-synctex/evince_synctex.py",
-					args = { "-f", "%l", "%p", '"texlab -i %f -l %l"' },
+					executable = "/usr/bin/python3",
+					args = {
+						vim.fn.stdpath("config") .. "/bundle/evince-synctex/evince_synctex.py",
+						"-f",
+						"%l",
+						"-s",
+						"%f",
+						"--texlab",
+						vim.fn.stdpath("data") .. "/mason/bin/texlab",
+						"%p",
+					},
 				},
 			},
 		},

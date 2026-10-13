@@ -1,5 +1,30 @@
 
 function ViewCorrespondingPDF(target_file)
+	-- Let texlab resolve the project PDF and preserve the current source/line.
+	if not target_file and vim.fn.expand("%:e") == "tex" then
+		local client = vim.lsp.get_clients({ bufnr = 0, name = "texlab" })[1]
+		if not client then
+			vim.notify("texlab is not attached yet. Try again after LSP starts.", vim.log.levels.WARN)
+			return
+		end
+		local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+		client:request("textDocument/forwardSearch", params, function(err, result)
+			if err then
+				vim.notify("PDF forward search: " .. err.message, vim.log.levels.ERROR)
+			elseif not result or result.status ~= 0 then
+				local statuses = {
+					[1] = "viewer error",
+					[2] = "PDF/SyncTeX not found; compile with -synctex=1",
+					[3] = "viewer not configured",
+				}
+				vim.notify(
+					"PDF forward search: " .. (result and statuses[result.status] or "unknown error"),
+					vim.log.levels.WARN
+				)
+			end
+		end, 0)
+		return
+	end
   -- 确定当前要处理的文件路径（绝对路径）
   local current_file = target_file or vim.fn.expand '%:p'
   -- 统一路径分隔符
