@@ -159,7 +159,9 @@ f, t, F, T motions:
 	"https://github.com/HiPhish/rainbow-delimiters.nvim",
 	-- Alt hjkl resize
 	"https://github.com/mrjones2014/smart-splits.nvim",
-	"https://github.com/chenyu76/draftsman.nvim",
+    -- My drawing plugin
+	-- "https://github.com/chenyu76/draftsman.nvim",
+	"file://" .. os.getenv("HOME") .. "/Documents/draftsman.nvim",
 	-- A polished, IDE-like, highly-customizable winbar for Neovim with drop-down menus and multiple backends.
 	-- For more information see :h dropbar.
 	-- "https://github.com/Bekaboo/dropbar.nvim",
@@ -264,7 +266,8 @@ vim.keymap.set("n", "<C-h>", smart_splits.move_cursor_left)
 vim.keymap.set("n", "<C-j>", smart_splits.move_cursor_down)
 vim.keymap.set("n", "<C-k>", smart_splits.move_cursor_up)
 vim.keymap.set("n", "<C-l>", smart_splits.move_cursor_right)
-vim.keymap.set("n", "<C-\\>", smart_splits.move_cursor_previous)
+-- smart-splits v3 removed move_cursor_previous; use Neovim's previous window.
+vim.keymap.set("n", "<C-\\>", "<C-w>p")
 
 require("snacks").setup({
 	terminal = { enabled = true },
@@ -401,5 +404,5 @@ vim.notify = notify
 vim.pack.add({ "https://github.com/atiladefreitas/dooing" })
 
 require("dooing").setup({
-    -- your custom config here (optional)
+	-- your custom config here (optional)
 })
