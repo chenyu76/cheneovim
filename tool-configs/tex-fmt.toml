@@ -10,3 +10,5 @@ wrap-chars = ["。","，","：","；","！","？","」","』","）","】","》",
 
 wrap-cjk = true
 wrap-by-visual-len = true
+ 
+verbatims = ["asciitikz"]

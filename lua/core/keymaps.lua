@@ -34,7 +34,6 @@ wk.setup({
 		-- { '<F4>', '<cmd>ToggleTerm<CR>', desc = 'Terminal', mode = { 'n', 'i', 't' }, icon = '' },
 		-- INFO: modules.view_corresponding_pdf
 		{ "<leader>tp", "<cmd>lua ViewCorrespondingPDF()<CR>", desc = "[Trigger] PDF", mode = "n", icon = "" },
-		{ "<leader>p", "<cmd>lua ViewCorrespondingPDF()<CR>", desc = "[Trigger] PDF", mode = "n", icon = "" },
 		-- INFO: modules.deepseek
 		{
 			"<leader>a",

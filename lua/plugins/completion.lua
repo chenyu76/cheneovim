@@ -14,6 +14,12 @@
 -- vary wildly. refer to each plugin's documentation for details.
 
 -- INFO: formatting and syntax highlighting
+--
+-- Fortran parser 可能与查询文件不兼容。
+-- 当 site/queries/fortran 指向 nvim-treesitter 的查询时，TeX 的 minted{fortran}
+-- 会触发 Invalid node type ".and."；（正确应指向tree-sitter-manager.nvim ）
+-- 若再次遇到，先用 :lua print(vim.fn.stdpath("data")) 确认数据目录；默认路径下修复：
+-- ln -sfnT ~/.local/share/nvim/site/pack/core/opt/tree-sitter-manager.nvim/runtime/queries/fortran ~/.local/share/nvim/site/queries/fortran
 vim.pack.add({
 	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 })
@@ -46,7 +52,7 @@ require("tree-sitter-manager").setup({
 
 vim.pack.add({
 	--denpendices
-	"https://github.com/rafamadriz/friendly-snippets",
+	-- "https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/folke/lazydev.nvim",
 	-- snip
 	"https://github.com/L3MON4D3/LuaSnip",
@@ -86,7 +92,8 @@ luasnip.config.set_config({
 	},
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()
+-- My Snippets
+-- require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/snippets" } })
 require("snippets.unicode-scripts")
 
